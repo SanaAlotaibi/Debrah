@@ -111,6 +111,5 @@ struct RepairDetailView: View {
             .ignoresSafeArea()
         }
         .environment(\.layoutDirection, .rightToLeft)
-        .toolbar(.hidden, for: .navigationBar) // إخفاء الشريط الافتراضي ليتطابق التصميم بالكامل
     }
 }
