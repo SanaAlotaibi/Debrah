@@ -89,7 +89,7 @@ struct ServicesView: View {
                 case .electricity:
                     Text("مشاكل الكهرباء")    // بدّلها بصفحتك لاحقًا
                 case .appliances:
-                    Text("الأجهزة المنزلية")  // بدّلها بصفحتك لاحقًا
+                    DevicesView()
                 }
             }
             .toolbar(.hidden)
