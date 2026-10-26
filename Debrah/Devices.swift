@@ -8,11 +8,11 @@ struct DeviceProblem: Identifiable, Hashable {
     let imageName: String
 
     static let all: [DeviceProblem] = [
-        DeviceProblem(id: 1, title: "الغسلات",          imageName: "device_washer"),
-        DeviceProblem(id: 2, title: "الثلاجات",          imageName: "device_fridge"),
-        DeviceProblem(id: 3, title: "المكيفات",          imageName: "device_ac"),
-        DeviceProblem(id: 4, title: "أفران الغاز",            imageName: "device_oven"),
-        DeviceProblem(id: 5, title: "مكانس الكهربائية", imageName: "device_vacuum"),
+        DeviceProblem(id: 1, title: "الغسالات",         imageName: "device_washer"),
+        DeviceProblem(id: 2, title: "الثلاجات",         imageName: "device_fridge"),
+        DeviceProblem(id: 3, title: "المكيفات",         imageName: "device_ac"),
+        DeviceProblem(id: 4, title: "أفران الغاز",      imageName: "device_oven"),
+        DeviceProblem(id: 5, title: "المكانس الكهربائية", imageName: "device_vacuum"),
         DeviceProblem(id: 6, title: "سخّانات المياه",   imageName: "water_heater")
     ]
 }
@@ -61,7 +61,22 @@ struct DevicesView: View {
             }
         }
         .navigationDestination(for: DeviceProblem.self) { problem in
-            DeviceProblemDetailView(problem: problem)
+            switch problem.id {
+            case 1:
+                WashersView()
+            case 2:
+                FridgesView()
+            case 3:
+                ACsView()
+            case 4:
+                GasOvensView()
+            case 5:
+                VacuumCleanersView()
+            case 6:
+                WaterHeatersView()
+            default:
+                DeviceProblemDetailView(problem: problem)
+            }
         }
         .tint(DevicesTheme.mint)
         .environment(\.layoutDirection, .rightToLeft)
