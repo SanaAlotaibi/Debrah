@@ -1,21 +1,8 @@
-//
-//  ContentView.swift
-//  Debrah
-//
-//  Created by WajenN on 12/05/1448 AH.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        ServicesView()
     }
 }
 
