@@ -113,3 +113,5 @@ struct RepairDetailView: View {
         .environment(\.layoutDirection, .rightToLeft)
     }
 }
+
+
