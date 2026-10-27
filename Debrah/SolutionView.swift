@@ -137,6 +137,14 @@ struct SolutionStepCard: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+                    if let title = step.title {
+                        Text(title)
+                            .typography(.cardTitle)
+                            .foregroundStyle(Theme.brown)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
                     Text(step.text)
                         .typography(.question)
                         .foregroundStyle(Theme.brown)

@@ -32,6 +32,9 @@ struct SolutionStep: Identifiable, Hashable {
     /// ترتيب الخطوة، ويظهر كـ «الخطوة ١».
     let order: Int
 
+    /// عنوان قصير للخطوة (مثل: «فصل الكهرباء»)، أو `nil`.
+    var title: String? = nil
+
     /// نص الخطوة.
     let text: String
 
@@ -42,6 +45,20 @@ struct SolutionStep: Identifiable, Hashable {
     var warning: String? = nil
 
     var id: Int { order }
+
+    init(
+        order: Int,
+        title: String? = nil,
+        text: String,
+        illustrationAsset: String? = nil,
+        warning: String? = nil
+    ) {
+        self.order = order
+        self.title = title
+        self.text = text
+        self.illustrationAsset = illustrationAsset
+        self.warning = warning
+    }
 }
 
 // MARK: - Diagnosis Problem
@@ -423,9 +440,9 @@ enum DiagnosisData {
         title: "الغسالات",
         imageName: "device_washer",
         problems: [
-            .pending(id: "washer-drain", title: "الغسالة لا تصرّف الماء", image: "washer_drain"),
-            .pending(id: "washer-drum", title: "حوض الغسيل لا يدور", image: "washer_drum"),
-            .pending(id: "washer-hose-leak", title: "تسرب الماء من وصلة خرطوم دخول الماء", image: "washer_hose_leak")
+            washerNotDraining,
+            washerDrumNotSpinning,
+            washerInletHoseLeak
         ]
     )
 
@@ -434,9 +451,9 @@ enum DiagnosisData {
         title: "الثلاجات",
         imageName: "device_fridge",
         problems: [
-            .pending(id: "fridge-not-cooling", title: "الثلاجة لا تبرد جيدًا", image: "fridge_not_cooling"),
-            .pending(id: "fridge-door-seal", title: "باب الثلاجة لا يغلق بإحكام", image: "fridge_door_seal"),
-            .pending(id: "fridge-water-drops", title: "تسريب المياه من الثلاجة", image: "fridge_water_drops")
+            fridgeNotCooling,
+            fridgeDoorNotSealing,
+            fridgeWaterLeak
         ]
     )
 
@@ -445,9 +462,9 @@ enum DiagnosisData {
         title: "المكيفات",
         imageName: "device_ac",
         problems: [
-            .pending(id: "ac-water-drip", title: "تقطر الماء من مكيف الأسبلت", image: "ac_water_drip"),
-            .pending(id: "ac-clicking-noise", title: "طقطقة المكيف", image: "ac_clicking_noise"),
-            .pending(id: "ac-bad-smell", title: "الرائحة الكريهة في المكيف", image: "ac_bad_smell")
+            acWaterDrip,
+            acClickingNoise,
+            acBadSmell
         ]
     )
 
@@ -536,4 +553,373 @@ enum DiagnosisData {
             )
         ]
     )
+    
+    // MARK: Air Conditioners
+
+    static let acWaterDrip = DiagnosisProblem(
+        id: "ac-water-drip",
+        title: "تقطير الماء من مكيف الأسبلت",
+        description: "قد يتسرب الماء من  المكيف أثناء تشغيله، وغالبًا ما يحدث ذلك بسبب انسداد أنبوب تصريف المياه أو تراكم الأوساخ، مما يمنع تصريف الماء بشكل طبيعي ويؤدي إلى تقطيره داخل الغرفة.",
+        illustrationAsset: "ac_water_drip",
+        questions: [
+            DiagnosisQuestion(id: "ac-water-drip-q1", text: "هل الماء ينقط بشكل متواصل؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-water-drip-q2", text: "هل في كتل وأوساخ على مجرى فتحة التصريف؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-water-drip-q3", text: "هل الماء يخرج من الواجهة الأمامية للمكيف؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-water-drip-q4", text: "هل يوجد تجمع ماء داخل المكيف؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-water-drip-q5", text: "هل فتحة التصريف مسدودة أو متسخة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-water-drip-q6", text: "هل الماء يخرج من نفس المكان كل مرة؟", expectedAnswer: true),
+            // REVIEW: "Yes" does not confirm the problem, so this question is not evaluated.
+            DiagnosisQuestion(id: "ac-water-drip-q7", text: "هل سبق تنظيف فتحة التصريف من قبل؟", expectedAnswer: nil)
+        ],
+        // Suggested images: front panel, filters, screws, grille clips, drain hose, drain opening.
+        solutionSteps: [
+            SolutionStep(order: 1, text: "اقفل المكيف عن الكهرباء."),
+            SolutionStep(order: 2, text: "فك الباب الاماميه للمكيف.\n• نسحب الفلاتر.\n• فك البراغي."),
+            SolutionStep(order: 3, text: "فك كلبسات الشبك باليد."),
+            SolutionStep(order: 4, text: "تتبع خرطوم التصريف."),
+            SolutionStep(order: 5, text: "تاكد من فتح فتحة التصريف اذا كانت مسدوده."),
+            SolutionStep(order: 6, text: "اجلب مصاص شرب و ضعه على فتحة التصريف و انفخ ليفتح المجرى."),
+            SolutionStep(order: 7, text: "ارجع واجهه المكيف بالترتيب.")
+        ]
+    )
+ 
+    static let acClickingNoise = DiagnosisProblem(
+        id: "ac-clicking-noise",
+        title: "طقطقة المكيف",
+        description: "قد تصدر من المكيف أصوات طقطقة أثناء التشغيل أو بعد إيقافه، وقد تنتج عن تمدد وانكماش الأجزاء البلاستيكية بسبب تغير درجة الحرارة، أو اهتزاز بعض الأجزاء غير المثبتة جيدًا.",
+        illustrationAsset: "ac_clicking_noise",
+        questions: [
+            DiagnosisQuestion(id: "ac-clicking-noise-q1", text: "هل تسمع صوت طقطقة عند تشغيل المكيف؟", expectedAnswer: true),
+            // REVIEW: An either/or question can't be answered with yes/no, so it is not evaluated.
+            DiagnosisQuestion(id: "ac-clicking-noise-q2", text: "هل الطقطقة مستمرة أو تظهر أحيانًا فقط؟", expectedAnswer: nil),
+            DiagnosisQuestion(id: "ac-clicking-noise-q3", text: "هل الصوت يخرج من الواجهة الأمامية؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-clicking-noise-q4", text: "هل الصوت يخرج من جهة الشبك أو الغطاء؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-clicking-noise-q5", text: "هل يوجد اهتزاز مع صوت الطقطقة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-clicking-noise-q6", text: "هل توجد براغي غير ثابتة؟", expectedAnswer: true)
+        ],
+        // Suggested images: opened front panel, filters, loose screws, grille clips, where to trace the sound.
+        solutionSteps: [
+            SolutionStep(order: 1, text: "اغلق الكهرباء عن المكيف."),
+            SolutionStep(order: 2, text: "افتح واجهه المكيف.\n• سحب الفلاتر.\n• فك البراغي.\n• فك كلبسات الشبك باليد."),
+            SolutionStep(
+                order: 3,
+                text: "قم بتشغيل المكيف للتتبع فقط.",
+                warning: "تحذير شديد: لا تلمس المكيف او اي اجزاء خلال تشغيله، هذا فقط للتتبع."
+            ),
+            SolutionStep(order: 4, text: "يوجد براغي تحتاج الى شد."),
+            SolutionStep(order: 5, text: "اجلب مفك وقم بشدها.")
+        ]
+    )
+
+    static let acBadSmell = DiagnosisProblem(
+        id: "ac-bad-smell",
+        title: "الرائحة الكريهة في المكيف",
+        description: "قد تظهر رائحة كريهة عند تشغيل المكيف بسبب تراكم الغبار أو الرطوبة داخل الجهاز، مما يؤثر على نقاء الهواء في الغرفة.",
+        illustrationAsset: "ac_bad_smell",
+        questions: [
+            DiagnosisQuestion(id: "ac-bad-smell-q1", text: "هل الفلتر متسخ؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-bad-smell-q2", text: "هل هناك طبقه طينيه ملتصقه بالمكيف؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-bad-smell-q3", text: "هل مروحة الدفع متسخه؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-bad-smell-q4", text: "هل الرائحة تظهر مباشرة عند تشغيل المكيف؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-bad-smell-q5", text: "هل الرائحة تزداد مع قوة الهواء؟", expectedAnswer: true),
+            // REVIEW: "Yes" does not confirm the problem, so this question is not evaluated.
+            DiagnosisQuestion(id: "ac-bad-smell-q6", text: "هل تم تنظيف الفلاتر من قبل؟", expectedAnswer: nil),
+            DiagnosisQuestion(id: "ac-bad-smell-q7", text: "هل توجد أوساخ واضحة داخل الواجهة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-bad-smell-q8", text: "هل المروحة عليها غبار أو طبقة متراكمة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "ac-bad-smell-q9", text: "هل الرائحة تشبه العفن أو الرطوبة؟", expectedAnswer: true)
+        ],
+        // Suggested images: dirty filter, muddy layer inside, blower fan, before and after cleaning.
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "فصل الكهرباء",
+                text: "قم بإيقاف تشغيل المكيف وفصل الكهرباء قبل البدء بالتنظيف."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "فتح واجهة المكيف",
+                text: "افتح الواجهة الأمامية للمكيف واسحب فلاتر الهواء برفق."
+            ),
+            SolutionStep(
+                order: 3,
+                title: "تنظيف الفلاتر",
+                text: "اغسل الفلاتر القابلة للغسل بالماء لإزالة الأتربة والأوساخ، ثم اتركها حتى تجف تمامًا."
+            ),
+            SolutionStep(
+                order: 4,
+                title: "فحص مروحة الدفع",
+                text: "تحقق من وجود أوساخ أو طبقة طينية متراكمة على مروحة الدفع والأجزاء الداخلية الظاهرة. نظّف الأتربة السطحية التي يمكن الوصول إليها بأمان دون فك الأجزاء الكهربائية."
+            ),
+            SolutionStep(
+                order: 5,
+                title: "تنظيف الأجزاء الداخلية",
+                text: "نظّف الأوساخ الظاهرة باستخدام أداة تنظيف مناسبة.",
+                warning: "لا ترش الماء مباشرة على التوصيلات أو المكونات الكهربائية. الأوساخ العميقة التي تتطلب تفكيك المروحة تحتاج تنظيفًا متخصصًا."
+            ),
+            SolutionStep(
+                order: 6,
+                title: "إعادة تركيب الأجزاء",
+                text: "أعد الفلاتر إلى مكانها، ثم أغلق الواجهة الأمامية للمكيف بإحكام."
+            ),
+            SolutionStep(
+                order: 7,
+                title: "التأكد من اختفاء الرائحة",
+                text: "بعد اكتمال التجفيف والتركيب، شغّل المكيف وتحقق من اختفاء الرائحة."
+            )
+        ]
+    )
+
+    // MARK: Fridges
+
+    static let fridgeNotCooling = DiagnosisProblem(
+        id: "fridge-not-cooling",
+        title: "الثلاجة لا تبرد جيدًا",
+        description: "قد تضعف برودة الثلاجة بسبب تراكم الأوساخ أو ضعف تهوية الهواء داخلها، مما يؤثر على حفظ الأطعمة.",
+        illustrationAsset: "fridge_not_cooling",
+        questions: [
+            DiagnosisQuestion(id: "fridge-not-cooling-q1", text: "هل تبريد الثلاجة أضعف من المعتاد رغم أنها تعمل؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-not-cooling-q2", text: "هل توجد طبقة واضحة من الغبار أو الأوساخ على ملفات المكثف التي يمكن رؤيتها بأمان؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-not-cooling-q3", text: "هل درجة الحرارة مضبوطة على الإعداد الموصى به في دليل الثلاجة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-not-cooling-q4", text: "هل باب الثلاجة يغلق بإحكام؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "فصل الكهرباء",
+                text: "افصل الثلاجة من مصدر الكهرباء قبل البدء بالتنظيف."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "تحديد مكان المكثف",
+                text: "راجع دليل الثلاجة لمعرفة مكان ملفات المكثف وطريقة الوصول المسموح بها.",
+                warning: "لا تفتح أي غطاء غير مخصص للمستخدم."
+            ),
+            SolutionStep(
+                order: 3,
+                title: "إزالة الغبار",
+                text: "إذا سمحت تعليمات الجهاز، استخدم مكنسة كهربائية بفرشاة ناعمة لإزالة الغبار دون ثني الأنابيب أو إتلافها."
+            ),
+            SolutionStep(
+                order: 4,
+                title: "إعادة التشغيل",
+                text: "أعيد الأجزاء المسموح بفكها إلى مكانها، ثم وصّل الثلاجة بالكهرباء وتحقق من درجة التبريد بعد استقرارها.",
+                warning: "إذا استمرت المشكلة، فقد تحتاج إلى فحص مختص."
+            )
+        ]
+    )
+
+    static let fridgeDoorNotSealing = DiagnosisProblem(
+        id: "fridge-door-seal",
+        title: "باب الثلاجة لا يغلق بإحكام",
+        description: "قد تلاحظ أن باب الثلاجة لا يُغلق جيدًا أو يترك فراغًا بسيطًا، وقد يكون ذلك بسبب اتساخ الإطار المطاطي للباب أو وجود عائق يمنعه من الإغلاق بإحكام.",
+        illustrationAsset: "fridge_door_seal",
+        questions: [
+            DiagnosisQuestion(id: "fridge-door-seal-q1", text: "هل تلاحظ أن باب الثلاجة لا يغلق بالكامل؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-door-seal-q2", text: "هل توجد أطعمة أو عبوات تمنع إغلاق الباب؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-door-seal-q3", text: "هل توجد أوساخ أو بقايا طعام على جلدة الباب المطاطية؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-door-seal-q4", text: "هل جلدة الباب سليمة دون تشققات أو تمزقات ظاهرة؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "إزالة العوائق",
+                text: "تحقق من ترتيب العبوات والأطعمة داخل الثلاجة، وأبعد أي شيء يمنع الباب من الإغلاق."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "تنظيف جلدة الباب",
+                text: "امسح الجلدة المطاطية بقطعة قماش ناعمة وماء دافئ مع صابون خفيف، ثم جففها."
+            ),
+            SolutionStep(
+                order: 3,
+                title: "فحص الإغلاق",
+                text: "أغلق الباب وتأكد من أنه يستقر في مكانه دون وجود فراغات واضحة."
+            ),
+            SolutionStep(
+                order: 4,
+                title: "التحقق من النتيجة",
+                text: "إذا استمر عدم الإغلاق أو كانت الجلدة ممزقة، فقد تحتاج إلى استبدال مناسب للطراز أو مساعدة فني."
+            )
+        ]
+    )
+
+    static let fridgeWaterLeak = DiagnosisProblem(
+        id: "fridge-water-drops",
+        title: "تسريب المياه من الثلاجة",
+        description: "قد تلاحظ تجمع الماء داخل الثلاجة أو على الأرض أسفلها، وقد يكون السبب انسداد فتحة التصريف أو تراكم الثلج وذوبانه.",
+        illustrationAsset: "fridge_water_drops",
+        questions: [
+            DiagnosisQuestion(id: "fridge-water-drops-q1", text: "هل توجد مياه متجمعة داخل الثلاجة أو أسفل أدراج الخضار؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-water-drops-q2", text: "هل توجد عبوة مفتوحة أو مسكوبة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-water-drops-q3", text: "هل تحتوي الثلاجة على فلتر ماء، وهل توجد مياه حوله؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "fridge-water-drops-q4", text: "هل يتكرر تجمع الماء بعد تنظيفه؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "تحديد مصدر الماء",
+                text: "أخرج العبوات القريبة من موضع التسرب وتحقق من عدم انسكاب محتوياتها."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "تجفيف المكان",
+                text: "امسح الماء بقطعة قماش نظيفة وجفف السطح."
+            ),
+            SolutionStep(
+                order: 3,
+                title: "فحص فلتر الماء",
+                text: "إذا كانت الثلاجة تحتوي على فلتر ماء، فتحقق من عدم وجود تسرب ظاهر حوله، واتبع دليل الجهاز للتأكد من تثبيته الصحيح دون فك الأجزاء الداخلية."
+            ),
+            SolutionStep(
+                order: 4,
+                title: "مراقبة التسرب",
+                text: "راقب المكان بعد التنظيف.",
+                warning: "إذا عاد الماء دون مصدر واضح، أو بدا أن مصدره نظام التصريف الداخلي، فلا تحاول فك أنابيب التصريف أو إزالة الأغطية الداخلية، واستعن بفني."
+            )
+        ]
+    )
+
+    // MARK: Washers
+
+    static let washerNotDraining = DiagnosisProblem(
+        id: "washer-drain",
+        title: "الغسالة لا تصرّف الماء",
+        description: "يبقى الماء داخل حوض الغسيل بعد اختيار وضع التصريف، ولا يخرج من الغسالة بالشكل الطبيعي.",
+        illustrationAsset: "washer_drain",
+        questions: [
+            DiagnosisQuestion(id: "washer-drain-q1", text: "هل يبقى الماء داخل حوض الغسيل عند اختيار وضع التصريف؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "washer-drain-q2", text: "هل خرطوم التصريف مثني أو مضغوط؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "washer-drain-q3", text: "هل توجد أوساخ أو أجسام عالقة عند فتحة التصريف الظاهرة؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "فصل الكهرباء",
+                text: "افصل قابس الغسالة بيدين جافتين، وأغلق مصدر الماء. ضع منشفة ووعاءً منخفضًا لاستقبال الماء المتبقي."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "فحص خرطوم التصريف",
+                text: "تأكد من أن الخرطوم غير مضغوط أو ملتف، وأن ارتفاعه مطابق لدليل الغسالة. بعض غسالات الحوضين تحتاج إلى وضع الخرطوم منخفضًا."
+            ),
+            SolutionStep(
+                order: 3,
+                title: "تحديد منفذ تنظيف الصمام",
+                text: "راجع دليل طراز الغسالة. إذا كان يحتوي على غطاء مخصص للمستخدم لتنظيف صمام التصريف، حدد مكانه واتبع تعليمات فتحه."
+            ),
+            SolutionStep(
+                order: 4,
+                title: "إزالة الانسداد",
+                text: "إذا سمح دليل الجهاز، افتح غطاء الصمام المخصص للصيانة، وأزل الوبر والأجسام الغريبة الظاهرة دون استخدام أدوات حادة أو شد آلية الصمام."
+            ),
+            SolutionStep(
+                order: 5,
+                title: "إعادة التركيب والاختبار",
+                text: "أعد الأغطية المخصصة للصيانة إلى مكانها وفق تعليمات الدليل. بعد التأكد من جفاف الأجزاء وعدم وجود تسرب ظاهر، اعد اختبار تصريف الماء.",
+                warning: "إذا استمرت المشكلة أو ظهر تسرب، أوقف الغسالة وافحص السبب قبل تكرار المحاولة."
+            )
+        ]
+    )
+
+    static let washerDrumNotSpinning = DiagnosisProblem(
+        id: "washer-drum",
+        title: "حوض الغسيل لا يدور",
+        description: "يتوقف قرص التحريك داخل حوض الغسيل عن الدوران عند تشغيل الغسالة.",
+        illustrationAsset: "washer_drum",
+        questions: [
+            DiagnosisQuestion(id: "washer-drum-q1", text: "هل يتوقف قرص التحريك عن الدوران عند بدء الغسيل؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "washer-drum-q2", text: "هل الحوض ممتلئ بالملابس بما يتجاوز الحد المسموح؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "washer-drum-q3", text: "هل توجد قطع ملابس عالقة حول قرص التحريك؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "إيقاف الغسالة",
+                text: "أوقف تشغيل الغسالة، وافصل القابس من مصدر الكهرباء بيدين جافتين."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "تقليل كمية الملابس",
+                text: "أخرج جزءًا من الملابس حتى تصبح الحمولة ضمن السعة المسموحة في دليل الغسالة."
+            ),
+            SolutionStep(
+                order: 3,
+                title: "فحص الحوض",
+                text: "تأكد بصريًا من عدم وجود ملابس ملتفة حول قرص التحريك أو أجسام ظاهرة تعيق حركته."
+            ),
+            SolutionStep(
+                order: 4,
+                title: "إعادة التشغيل",
+                text: "بعد التأكد من خلو الحوض من العوائق الظاهرة، أعد تشغيل دورة الغسيل."
+            )
+        ]
+    )
+
+    static let washerInletHoseLeak = DiagnosisProblem(
+        id: "washer-hose-leak",
+        title: "تسرب الماء من وصلة خرطوم دخول الماء",
+        description: "قد تلاحظ تسرب الماء من مكان توصيل خرطوم الغسالة بالصنبور أو بمدخل الماء، وقد يكون ذلك بسبب ارتخاء الوصلة أو تلف الحلقة المطاطية.",
+        illustrationAsset: "washer_hose_leak",
+        questions: [
+            DiagnosisQuestion(id: "washer-hose-leak-q1", text: "هل يتسرب الماء من نقطة اتصال الخرطوم بالصنبور أو بالغسالة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "washer-hose-leak-q2", text: "هل الوصلة مرتخية أو غير مثبتة بشكل مستقيم؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "washer-hose-leak-q3", text: "هل توجد تشققات أو تلف ظاهر في الخرطوم؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "washer-hose-leak-q4", text: "هل يظهر التسرب عند فتح صنبور الماء؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "إيقاف الماء وفصل الكهرباء",
+                text: "أغلق صنبور الماء، وأوقف تشغيل الغسالة وافصل قابس الكهرباء بيدين جافتين."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "تحديد مكان التسرب",
+                text: "افحص وصلة الخرطوم عند الصنبور وعند مدخل الماء في الغسالة، وحدد النقطة التي يتسرب منها الماء."
+            ),
+            SolutionStep(
+                order: 3,
+                title: "إعادة تثبيت الوصلة",
+                text: "إذا كانت الوصلة مرتخية، أعد تثبيتها بشكل مستقيم وفق تعليمات الجهاز، دون المبالغة في الشد."
+            ),
+            SolutionStep(
+                order: 4,
+                title: "فحص الخرطوم والحلقة المطاطية",
+                text: "إذا استمر التسرب، تحقق من وجود تشققات في الخرطوم أو تلف في الحلقة المطاطية الموجودة داخل الوصلة. استبدل الجزء التالف بقطعة متوافقة مع الجهاز."
+            ),
+            SolutionStep(
+                order: 5,
+                title: "التأكد من توقف التسرب",
+                text: "افتح صنبور الماء تدريجيًا، وراقب الوصلة للتأكد من عدم خروج الماء.",
+                warning: "إذا استمر التسرب، أغلق الصنبور ولا تستخدم الغسالة حتى تُعالج المشكلة."
+            )
+        ]
+    )
+
+    // MARK: - Template for new problems
+    //
+    // To add a problem, copy this block, fill it in, then add its name to the
+    // `problems` list of its category above (e.g. `problems: [..., myNewProblem]`).
+    //
+    // Rules:
+    // - Every `id` must be unique. Questions use "<problem-id>-q1", "-q2", ...
+    // - Write every question so that "نعم" confirms the problem → expectedAnswer: true.
+    //   If "نعم" does not confirm it, use expectedAnswer: nil (not evaluated).
+    // - Safety questions: "نعم" must be the safe state, and add isSafetyCritical: true.
+    // - `title` and `warning` on a step are optional.
+    //
+    // static let myNewProblem = DiagnosisProblem(
+    //     id: "device-short-name",
+    //     title: "عنوان المشكلة",
+    //     description: "وصف قصير يظهر في شاشة المقدمة، أو اتركه فارغاً",
+    //     illustrationAsset: "image_name_in_assets",
+    //     questions: [
+    //         DiagnosisQuestion(id: "device-short-name-q1", text: "هل ...؟", expectedAnswer: true),
+    //         DiagnosisQuestion(id: "device-short-name-q2", text: "هل ...؟", expectedAnswer: true)
+    //     ],
+    //     solutionSteps: [
+    //         SolutionStep(order: 1, title: "فصل الكهرباء", text: "..."),
+    //         SolutionStep(order: 2, text: "...", warning: "تحذير ...")
+    //     ]
+    // )
 }
