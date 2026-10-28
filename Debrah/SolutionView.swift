@@ -121,13 +121,16 @@ struct SolutionView: View {
 // MARK: - Step Card
 
 /// بطاقة خطوة واحدة: رقم الخطوة، والنص، والصورة، والملاحظة، ومؤشر الصفحات.
+// MARK: - Step Card
+
+/// بطاقة خطوة واحدة: رقم الخطوة، والنص، والصورة، والملاحظة، ومؤشر الصفحات.
 struct SolutionStepCard: View {
 
     let step: SolutionStep
     let stepIndex: Int
     let totalSteps: Int
 
-    @ScaledMetric(relativeTo: .body) private var imageHeight: CGFloat = 140
+    @ScaledMetric(relativeTo: .body) private var imageHeight: CGFloat = 160
 
     var body: some View {
         VStack(spacing: Theme.Spacing.xl) {
@@ -175,28 +178,33 @@ struct SolutionStepCard: View {
         .cardSurface(cornerRadius: Theme.Radius.largeCard, shadowOpacity: Theme.Shadow.raisedCard)
     }
 
-    /// صورة الخطوة، أو مكان فارغ بأيقونة إذا لم تُضف بعد.
-    private var stepImage: some View {
-        Group {
-            if let name = step.illustrationAsset {
-                Image(name)
-                    .resizable()
-                    .scaledToFill()
-            } else {
-                Rectangle()
-                    .fill(Theme.mintButton.opacity(0.35))
-                    .overlay {
-                        Image(systemName: "photo")
-                            .font(.largeTitle)
-                            .foregroundStyle(Theme.mintLabel)
-                    }
+    /// صورة الخطوة، أو مكان فارغ بأيقونة إذا لم تُضف بعد (تظهر كاملة بوضع Fit دون قص).
+        private var stepImage: some View {
+            Group {
+                if let name = step.illustrationAsset, UIImage(named: name) != nil {
+                    Image(name)
+                        .resizable()
+                        .scaledToFit() // تعرض الصورة كاملة 100% دون قص أي جزء
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 230) // ارتفاع ممتاز ومناسب داخل الكارد
+                        .padding(.vertical, 4) // مسافة بسيطة لتبدو مريحة للعين
+                } else {
+                    Rectangle()
+                        .fill(Theme.mintButton.opacity(0.35))
+                        .overlay {
+                            Image(systemName: "photo")
+                                .font(.largeTitle)
+                                .foregroundStyle(Theme.mintLabel)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 180)
+                }
             }
+            .frame(maxWidth: .infinity)
+            .background(Color.white.opacity(0.5)) // خلفية ناعمة خفيفة متناسقة مع تصميم التطبيق
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.image, style: .continuous))
+            .accessibilityHidden(true)
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: min(imageHeight, 200))
-        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.image, style: .continuous))
-        .accessibilityHidden(true)
-    }
 }
 
 // MARK: - Page Indicator

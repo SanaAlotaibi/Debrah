@@ -414,11 +414,16 @@ enum DiagnosisData {
     )
 
     static let furniture = ServiceCategory(
-        id: "furniture",
-        title: "الأبواب والأثاث",
-        icon: "homekit",
-        problems: [looseDrawer]
-    )
+            id: "furniture",
+            title: "الأبواب والأثاث",
+            icon: "homekit",
+            problems: [
+                looseDrawer,
+                doorTilt,
+            //    chairWobble,
+               // doorHandleLoose
+            ]
+        )
 
     static let electricity = ServiceCategory(
         id: "electricity",
@@ -505,54 +510,98 @@ enum DiagnosisData {
     // MARK: Problems
 
     static let looseDrawer = DiagnosisProblem(
-        id: "drawer-loose",
-
-        title: "ارتخاء الأدراج",
-
-        description:
-            "قد يصبح الدرج مائلاً أو غير ثابت، مما يصعّب فتحه وإغلاقه بسلاسة. غالباً بسبب ارتخاء المسامير أو تلف مسارات الدرج.",
-
-        illustrationAsset: "drawer-loose-illustration",
-
-        questions: [
-            DiagnosisQuestion(
-                id: "drawer-loose-q1",
-                text: "هل تتحرك السكة من مكان تثبيتها؟",
-                expectedAnswer: true
-            ),
-
-            DiagnosisQuestion(
-                id: "drawer-loose-q2",
-                text: "سؤال تجريبي ٢ — استبدله بسؤال التشخيص الحقيقي",
-                expectedAnswer: true
-            ),
-
-            DiagnosisQuestion(
-                id: "drawer-loose-q3",
-                // TODO: Write the real question so that "Yes" confirms the problem.
-                text: "سؤال تجريبي ٣ — استبدله بسؤال التشخيص الحقيقي",
-                expectedAnswer: true
-            )
-        ],
-
-        solutionSteps: [
-            SolutionStep(
-                order: 1,
-                text: "أفرغ الدرج من محتوياته لتسهيل التعامل معه",
-                warning: "تنبيه: إذا كان الدرج مائلاً أو خرج من مساره، لا تجبره على الحركة:\nفقد يحتاج إلى إعادة تركيب السكة أو إصلاحها"
-            ),
-
-            SolutionStep(
-                order: 2,
-                text: "نص تجريبي للخطوة الثانية"
-            ),
-
-            SolutionStep(
-                order: 3,
-                text: "نص تجريبي للخطوة الثالثة"
-            )
-        ]
-    )
+            id: "drawer-loose",
+            title: "ارتخاء الأدراج",
+            description: "قد يصبح الدرج مائلاً أو غير ثابت، مما يصعب فتحه وإغلاقه بسلاسة. غالباً بسبب ارتخاء المسامير أو تلف مسارات الدرج.",
+            illustrationAsset: "drawer_loose",
+            questions: [
+                DiagnosisQuestion(id: "drawer-loose-q1", text: "هل يتحرك درج الخزانة أو السكة من مكان تثبيتها عند سحبه؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "drawer-loose-q2", text: "هل لاحظتِ وجود مسامير مفكوكة أو ساقطة في أسفل الدرج أو على الجوانب؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "drawer-loose-q3", text: "هل صوت احتكاك الخشب ببعضه واضح ومزعج عند فتح وإغلاق الدرج؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "أفرغ الدرج",
+                    text: "أخرج جميع الأغراض من الدرج لتخفيف وزنه وتسهيل فحصه.",
+                    illustrationAsset: "drawer_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "أخرج الدرج من مكانه",
+                    text: "اسحب الدرج بحذر، وإذا كانت له آلية تحرير للمسارات، اتبع تعليمات الشركة المصنعة لإخراجه بأمان.",
+                    illustrationAsset: "drawer_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "افحص براغي التثبيت",
+                    text: "افحص البراغي التي تثبت المسارات بجوانب الدرج وهيكل الدولاب، وتحقق من وجود براغٍ مرتخية.",
+                    illustrationAsset: "drawer_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "أحكم تثبيت البراغي",
+                    text: "استخدم المفك المناسب لشد البراغي المرتخية برفق، دون المبالغة في الشد حتى لا تتلف فتحات التثبيت.",
+                    illustrationAsset: "drawer_step4"
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "أعد تركيب الدرج",
+                    text: "أعد الدرج إلى مساراته، وتأكد من دخوله في مكانه الصحيح.",
+                    illustrationAsset: "drawer_step5"
+                ),
+                SolutionStep(
+                    order: 6,
+                    title: "اختبر حركة الدرج",
+                    text: "افتح الدرج وأغلقه عدة مرات، وتحقق من استقامته وسلاسة حركته.",
+                    illustrationAsset: "drawer_step6"
+                )
+            ]
+        )
+    
+    static let doorTilt = DiagnosisProblem(
+            id: "door-tilt",
+            title: "ميلان الأبواب",
+            description: "يظهر ميلان في الأبواب مما يمنع إغلاقها بإحكام أو الاحتكاك بالأرضية، وغالباً ما يحتاج تعديل المفصلات.",
+            illustrationAsset: "door_tilt",
+            questions: [
+                DiagnosisQuestion(id: "door-tilt-q1", text: "هل يحتك الباب بالأرض عند فتحه أو إغلاقه؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "door-tilt-q2", text: "هل توجد براغٍ مرتخية أو مفصلات غير مثبتة بإحكام في الباب؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "door-tilt-q3", text: "هل تلاحظ أن الباب مائل أو هابط من جهة المقبض؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "افحص مفصلات الباب",
+                    text: "افتح الباب قليلًا، وافحص المفصلات الموجودة على جانبه. تحقق من وجود براغٍ مرتخية أو مفصلات تتحرك من مكانها، ولاحظ إن كان الباب يهبط من جهة المقبض.",
+                    illustrationAsset: "door_tilt_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "جهّز الباب قبل الإصلاح",
+                    text: "إذا كان الباب ثقيلًا أو يهبط بوضوح، لا تحاول رفعه أو إصلاحه وحدك. اطلب مساعدة شخص بالغ أو مختص لتثبيته ودعم وزنه قبل التعامل مع المفصلات.",
+                    illustrationAsset: "door_tilt_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "أحكم تثبيت البراغي المرتخية",
+                    text: "بعد تثبيت الباب بأمان، استخدم مفكًا مناسبًا لشد البراغي المرتخية برفق. إذا كانت البراغي تدور دون أن تثبت أو كانت فتحاتها متضررة، فلا تواصل شدها بالقوة.",
+                    illustrationAsset: "door_tilt_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "افحص استقامة الباب",
+                    text: "تحقق من أن المفصلات مثبتة جيدًا وأن الباب عاد إلى موضعه الصحيح. إذا كانت المفصلات مثنية أو كان إطار الباب متضررًا، فقد يحتاج إلى إصلاح إضافي.",
+                    illustrationAsset: "door_tilt_step4"
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "اختبر فتح الباب وإغلاقه",
+                    text: "بعد التأكد من ثبات المفصلات، حرّك الباب بهدوء وتحقق من سهولة فتحه وإغلاقه ومن عدم احتكاكه بالأرض. إذا استمر الميلان، فقد تكون المشكلة في المفصلات أو الإطار نفسه.",
+                    illustrationAsset: "door_tilt_step5"
+                )
+            ]
+        )
     
     // MARK: Air Conditioners
 
