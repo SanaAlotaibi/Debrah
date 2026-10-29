@@ -428,7 +428,8 @@ enum DiagnosisData {
     static let electricity = ServiceCategory(
         id: "electricity",
         title: "مشاكل الكهرباء",
-        icon: "bolt"
+        icon: "bolt",
+        subcategories: [lighting, outlets, breakers]
     )
 
     static let homeAppliances = ServiceCategory(
@@ -437,7 +438,39 @@ enum DiagnosisData {
         icon: "washer",
         subcategories: [washers, fridges, airConditioners, gasOvens, vacuumCleaners, waterHeaters]
     )
+    static let lighting = ServiceCategory(
+            id: "lighting",
+            title: "الأنوار والإضاءة",
+            imageName: "lights",
+            problems: [
+                .pending(id: "lighting-bulb-burnt", title: "اللمبة محترقة ولا تضيء", image: "lighting_bulb_burnt"),
+                .pending(id: "lighting-bulb-flickering", title: "اللمبة تومض باستمرار", image: "lighting_bulb_flickering"),
+                .pending(id: "lighting-bulb-mismatch", title: "اللمبة الجديدة لا تناسب وحدة الإنارة", image: "lighting_bulb_mismatch"),
+                .pending(id: "lighting-bulb-dim", title: "إضاءة اللمبة ضعيفة", image: "lighting_bulb_dim")
+            ]
+        )
 
+        static let outlets = ServiceCategory(
+            id: "outlets",
+            title: "المقابس والتوصيلات",
+            imageName: "sockets_wiring",
+            problems: [
+                .pending(id: "outlets-device-not-working", title: "الجهاز لا يعمل عند توصيله بالكهرباء", image: "outlets_device_not_working"),
+                .pending(id: "outlets-plug-hot", title: "القابس أو التوصيلة ساخنة بشكل غير طبيعي", image: "outlets_plug_hot"),
+                .pending(id: "outlets-sparks", title: "وجود شرر عند توصيل القابس", image: "outlets_sparks")
+            ]
+        )
+
+        static let breakers = ServiceCategory(
+            id: "breakers",
+            title: "القواطع وانقطاع الكهرباء",
+            imageName: "power_outage",
+            problems: [
+                .pending(id: "breakers-one-room-outage", title: "انقطاع الكهرباء عن غرفة واحدة", image: "breakers_one_room_outage"),
+                .pending(id: "breakers-whole-house-outage", title: "انقطاع الكهرباء عن المنزل بالكامل", image: "breakers_whole_house_outage"),
+                .pending(id: "breakers-clicking-burning-smell", title: "انقطاع الكهرباء مع صدور صوت طقطقة أو رائحة احتراق", image: "breakers_clicking_burning_smell")
+            ]
+        )
     // MARK: Home Appliances
 
     static let washers = ServiceCategory(
