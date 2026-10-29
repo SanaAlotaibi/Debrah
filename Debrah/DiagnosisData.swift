@@ -439,38 +439,42 @@ enum DiagnosisData {
         subcategories: [washers, fridges, airConditioners, gasOvens, vacuumCleaners, waterHeaters]
     )
     static let lighting = ServiceCategory(
-            id: "lighting",
-            title: "الأنوار والإضاءة",
-            imageName: "lights",
-            problems: [
-                .pending(id: "lighting-bulb-burnt", title: "اللمبة محترقة ولا تضيء", image: "lighting_bulb_burnt"),
-                .pending(id: "lighting-bulb-flickering", title: "اللمبة تومض باستمرار", image: "lighting_bulb_flickering"),
-                .pending(id: "lighting-bulb-mismatch", title: "اللمبة الجديدة لا تناسب وحدة الإنارة", image: "lighting_bulb_mismatch"),
-                .pending(id: "lighting-bulb-dim", title: "إضاءة اللمبة ضعيفة", image: "lighting_bulb_dim")
-            ]
-        )
+        id: "lighting",
+        title: "الأنوار والإضاءة",
+        imageName: "lights",
+        problems: [
+            bulbBurnt,
+            bulbFlickering,
+            bulbMismatch,
+            bulbDim
+        ]
+    )
 
-        static let outlets = ServiceCategory(
-            id: "outlets",
-            title: "المقابس والتوصيلات",
-            imageName: "sockets_wiring",
-            problems: [
-                .pending(id: "outlets-device-not-working", title: "الجهاز لا يعمل عند توصيله بالكهرباء", image: "outlets_device_not_working"),
-                .pending(id: "outlets-plug-hot", title: "القابس أو التوصيلة ساخنة بشكل غير طبيعي", image: "outlets_plug_hot"),
-                .pending(id: "outlets-sparks", title: "وجود شرر عند توصيل القابس", image: "outlets_sparks")
-            ]
-        )
+    static let outlets = ServiceCategory(
+        id: "outlets",
+        title: "المقابس والتوصيلات",
+        imageName: "sockets_wiring",
+        problems: [
+            deviceNotWorking,
+            plugHot,
+            outletSparks
+        ]
+    )
 
-        static let breakers = ServiceCategory(
-            id: "breakers",
-            title: "القواطع وانقطاع الكهرباء",
-            imageName: "power_outage",
-            problems: [
-                .pending(id: "breakers-one-room-outage", title: "انقطاع الكهرباء عن غرفة واحدة", image: "breakers_one_room_outage"),
-                .pending(id: "breakers-whole-house-outage", title: "انقطاع الكهرباء عن المنزل بالكامل", image: "breakers_whole_house_outage"),
-                .pending(id: "breakers-clicking-burning-smell", title: "انقطاع الكهرباء مع صدور صوت طقطقة أو رائحة احتراق", image: "breakers_clicking_burning_smell")
-            ]
-        )
+    static let breakers = ServiceCategory(
+        id: "breakers",
+        title: "القواطع وانقطاع الكهرباء",
+        imageName: "power_outage",
+        problems: [
+            oneRoomOutage,
+            wholeHouseOutage,
+            clickingBurningSmell
+        ]
+    )
+
+        
+
+       
     // MARK: Home Appliances
 
     static let washers = ServiceCategory(
@@ -902,7 +906,191 @@ enum DiagnosisData {
             )
         ]
     )
+    // MARK: Lighting
 
+    static let bulbBurnt = DiagnosisProblem(
+        id: "lighting-bulb-burnt",
+        title: "اللمبة محترقة ولا تضيء",
+        description: "",
+        illustrationAsset: "lighting_bulb_burnt",
+        questions: [
+            DiagnosisQuestion(id: "lighting-bulb-burnt-q1", text: "هل اللمبة لا تضيء عند تشغيل مفتاح الإنارة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-burnt-q2", text: "هل تعمل بقية الأنوار في الغرفة بشكل طبيعي؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-burnt-q3", text: "هل لا توجد رائحة احتراق أو آثار تلف على وحدة الإنارة؟", expectedAnswer: true, isSafetyCritical: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "أطفئ المفتاح واترك اللمبة تبرد", text: "إطفاء مفتاح الإنارة وترك اللمبة تبرد."),
+            SolutionStep(order: 2, title: "فك اللمبة القديمة", text: "فك اللمبة القديمة بالطريقة المناسبة لنوعها."),
+            SolutionStep(order: 3, title: "ركّب لمبة جديدة", text: "تركيب لمبة جديدة متوافقة مع وحدة الإنارة."),
+            SolutionStep(order: 4, title: "شغّل المفتاح واختبرها", text: "تشغيل المفتاح واختبارها.")
+        ]
+    )
+
+    static let bulbFlickering = DiagnosisProblem(
+        id: "lighting-bulb-flickering",
+        title: "اللمبة تومض باستمرار",
+        description: "",
+        illustrationAsset: "lighting_bulb_flickering",
+        questions: [
+            DiagnosisQuestion(id: "lighting-bulb-flickering-q1", text: "هل تومض اللمبة بشكل متكرر أثناء تشغيلها؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-flickering-q2", text: "هل تعمل بقية الأنوار في الغرفة بشكل طبيعي؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-flickering-q3", text: "هل لا توجد رائحة احتراق أو سخونة غير طبيعية أو أصوات طقطقة؟", expectedAnswer: true, isSafetyCritical: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "أطفئ الإنارة وانتظر", text: "إطفاء الإنارة والانتظار حتى تبرد اللمبة."),
+            SolutionStep(order: 2, title: "استبدل اللمبة", text: "استبدالها بلمبة جديدة متوافقة."),
+            SolutionStep(order: 3, title: "راقب استمرار الوميض", text: "إذا استمر الوميض، فقد تكون المشكلة في وحدة الإنارة أو التوصيلات؛ عندها يجب إيقاف الاستخدام والاستعانة بكهربائي مختص.")
+        ]
+    )
+
+    static let bulbMismatch = DiagnosisProblem(
+        id: "lighting-bulb-mismatch",
+        title: "اللمبة الجديدة لا تناسب وحدة الإنارة",
+        description: "",
+        illustrationAsset: "lighting_bulb_mismatch",
+        questions: [
+            DiagnosisQuestion(id: "lighting-bulb-mismatch-q1", text: "هل اشتريتِ لمبة جديدة لاستبدال القديمة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-mismatch-q2", text: "هل قاعدة اللمبة الجديدة لا تتناسب مع وحدة الإنارة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-mismatch-q3", text: "هل يمكنكِ قراءة مواصفات اللمبة المناسبة من ملصق وحدة الإنارة؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "اقرأ مواصفات وحدة الإنارة", text: "قراءة نوع القاعدة والقدرة المسموح بها على ملصق وحدة الإنارة."),
+            SolutionStep(order: 2, title: "اشترِ لمبة مطابقة", text: "شراء لمبة بنفس نوع القاعدة وبقدرة متوافقة."),
+            SolutionStep(order: 3, title: "ركّب اللمبة بأمان", text: "تركيب اللمبة بعد إطفاء مفتاح الإنارة والتأكد من برودتها.")
+        ]
+    )
+
+    static let bulbDim = DiagnosisProblem(
+        id: "lighting-bulb-dim",
+        title: "إضاءة اللمبة ضعيفة",
+        description: "",
+        illustrationAsset: "lighting_bulb_dim",
+        questions: [
+            DiagnosisQuestion(id: "lighting-bulb-dim-q1", text: "هل إضاءة اللمبة أضعف من المعتاد؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-dim-q2", text: "هل ما زالت اللمبة تعمل ولكنها لا تعطي إضاءة كافية؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-dim-q3", text: "هل يوجد غبار أو اتساخ ظاهر على الغطاء الخارجي لوحدة الإنارة؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "أطفئ الإنارة وافصل الكهرباء", text: "إطفاء الإنارة وفصل الكهرباء قبل التنظيف."),
+            SolutionStep(order: 2, title: "نظّف الغطاء الخارجي", text: "تنظيف الغطاء الخارجي إذا كان قابلًا للإزالة والتنظيف بأمان."),
+            SolutionStep(order: 3, title: "جرّب لمبة جديدة", text: "تجربة لمبة جديدة متوافقة إذا استمرت الإضاءة الضعيفة."),
+            SolutionStep(order: 4, title: "اطلب فحص وحدة الإنارة", text: "إذا بقيت الإضاءة ضعيفة، يجب فحص وحدة الإنارة لدى مختص.")
+        ]
+    )
+
+    // MARK: Outlets
+
+    static let deviceNotWorking = DiagnosisProblem(
+        id: "outlets-device-not-working",
+        title: "الجهاز لا يعمل عند توصيله بالكهرباء",
+        description: "",
+        illustrationAsset: "outlets_device_not_working",
+        questions: [
+            DiagnosisQuestion(id: "outlets-device-not-working-q1", text: "هل الجهاز لا يعمل عند توصيله بالمقبس؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-device-not-working-q2", text: "هل تأكدتِ من تشغيل الجهاز وتوصيله بالطريقة الصحيحة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-device-not-working-q3", text: "هل يعمل الجهاز عند تجربته في مقبس آخر سليم وجاف؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "تأكد من التشغيل والتوصيل", text: "التأكد من تشغيل الجهاز وتوصيله بالطريقة الصحيحة."),
+            SolutionStep(order: 2, title: "افحص القابس", text: "فصل القابس وفحصه بصريًا بحثًا عن تلف، دون لمس الأجزاء المعدنية المتضررة."),
+            SolutionStep(order: 3, title: "جرّب مقبسًا آخر", text: "تجربة الجهاز في مقبس آخر سليم وجاف، بشرط عدم وجود أي علامات خطر."),
+            SolutionStep(order: 4, title: "اطلب فحص المقبس", text: "إذا عمل الجهاز في المقبس الآخر، فقد يحتاج المقبس الأول إلى فحص كهربائي مختص.")
+        ]
+    )
+
+    static let plugHot = DiagnosisProblem(
+        id: "outlets-plug-hot",
+        title: "القابس أو التوصيلة ساخنة بشكل غير طبيعي",
+        description: "",
+        illustrationAsset: "outlets_plug_hot",
+        questions: [
+            DiagnosisQuestion(id: "outlets-plug-hot-q1", text: "هل لاحظتِ سخونة غير طبيعية في القابس أو التوصيلة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-plug-hot-q2", text: "هل تستمر السخونة أثناء استخدام الجهاز؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-plug-hot-q3", text: "هل لاحظتِ تغيرًا في لون البلاستيك أو تشوهًا في القابس أو التوصيلة؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "توقف عن الاستخدام", text: "التوقف عن استخدام الجهاز والتوصيلة."),
+            SolutionStep(order: 2, title: "لا تلمس القابس الساخن", text: "عدم لمس القابس إذا كان شديد السخونة أو يصدر شررًا."),
+            SolutionStep(order: 3, title: "افصل الكهرباء من القاطع", text: "فصل الكهرباء من القاطع المناسب إذا أمكن ذلك بأمان."),
+            SolutionStep(order: 4, title: "استبدل التوصيلة واطلب فحصًا", text: "استبدال التوصيلة المتضررة، وطلب فحص المقبس لدى كهربائي قبل إعادة استخدامه.")
+        ]
+    )
+
+    static let outletSparks = DiagnosisProblem(
+        id: "outlets-sparks",
+        title: "وجود شرر عند توصيل القابس",
+        description: "",
+        illustrationAsset: "outlets_sparks",
+        questions: [
+            DiagnosisQuestion(id: "outlets-sparks-q1", text: "هل لاحظتِ شررًا عند توصيل القابس بالمقبس؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-sparks-q2", text: "هل تكرر الشرر أو صاحبه صوت طقطقة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-sparks-q3", text: "هل لاحظتِ رائحة احتراق أو آثارًا سوداء حول المقبس؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "لا تكرر التوصيل", text: "عدم تكرار توصيل القابس لاختبار المشكلة."),
+            SolutionStep(order: 2, title: "ابتعد عن المقبس", text: "إذا تكرر الشرر أو صاحبه صوت طقطقة أو رائحة احتراق، يجب الابتعاد عن المقبس وعدم لمسه."),
+            SolutionStep(order: 3, title: "افصل الدائرة من القاطع", text: "فصل الدائرة من القاطع إذا أمكن ذلك بأمان."),
+            SolutionStep(order: 4, title: "اطلب كهربائيًا مختصًا", text: "طلب كهربائي مختص لفحص المقبس والجهاز قبل إعادة استخدامهما.")
+        ]
+    )
+
+    // MARK: Breakers
+
+    static let oneRoomOutage = DiagnosisProblem(
+        id: "breakers-one-room-outage",
+        title: "انقطاع الكهرباء عن غرفة واحدة",
+        description: "",
+        illustrationAsset: "breakers_one_room_outage",
+        questions: [
+            DiagnosisQuestion(id: "breakers-one-room-outage-q1", text: "هل انقطعت الكهرباء عن غرفة واحدة فقط؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "breakers-one-room-outage-q2", text: "هل تعمل الكهرباء في بقية غرف المنزل بشكل طبيعي؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "breakers-one-room-outage-q3", text: "هل لا توجد رائحة احتراق أو أصوات طقطقة قرب لوحة القواطع؟", expectedAnswer: true, isSafetyCritical: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "حدد ما انقطع في الغرفة", text: "التأكد مما إذا كانت المشكلة تشمل الإنارة والمقابس في الغرفة أو أحدهما فقط."),
+            SolutionStep(order: 2, title: "تأكد أن المشكلة في الغرفة فقط", text: "التحقق من أن المشكلة محصورة في الغرفة، بينما تعمل الكهرباء في بقية المنزل."),
+            SolutionStep(order: 3, title: "افحص لوحة القواطع", text: "فحص لوحة القواطع من الخارج بحثًا عن قاطع مفصول."),
+            SolutionStep(order: 4, title: "أعد القاطع مرة واحدة", text: "إذا كان القاطع مفصولًا ولا توجد علامات خطر، يمكن إعادته مرة واحدة وفق تعليمات اللوحة."),
+            SolutionStep(order: 5, title: "تواصل مع كهربائي مختص", text: "إذا لم تعد الكهرباء أو فصل القاطع مجددًا، يجب التواصل مع كهربائي مختص.")
+        ]
+    )
+
+    static let wholeHouseOutage = DiagnosisProblem(
+        id: "breakers-whole-house-outage",
+        title: "انقطاع الكهرباء عن المنزل بالكامل",
+        description: "",
+        illustrationAsset: "breakers_whole_house_outage",
+        questions: [
+            DiagnosisQuestion(id: "breakers-whole-house-outage-q1", text: "هل انقطعت الكهرباء عن جميع غرف المنزل؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "breakers-whole-house-outage-q2", text: "هل توقفت الإنارة والأجهزة عن العمل في المنزل بالكامل؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "breakers-whole-house-outage-q3", text: "هل لا توجد رائحة احتراق أو أصوات غير طبيعية قرب لوحة القواطع؟", expectedAnswer: true, isSafetyCritical: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "تأكد من شمول الانقطاع للمنزل", text: "التأكد من أن الانقطاع يشمل المنزل بالكامل، وليس غرفة واحدة فقط."),
+            SolutionStep(order: 2, title: "تحقق من المنازل المجاورة", text: "التحقق مما إذا كانت المنازل المجاورة أو إنارة الشارع متأثرة."),
+            SolutionStep(order: 3, title: "أطفئ الأجهزة عالية الاستهلاك", text: "إطفاء الأجهزة ذات الاستهلاك العالي، مثل المكيفات، لحماية الأجهزة عند عودة الكهرباء."),
+            SolutionStep(order: 4, title: "أبلغ شركة الكهرباء", text: "إذا كان الانقطاع عامًا، التواصل مع الشركة السعودية للكهرباء على الرقم 933 للإبلاغ عن انقطاع الخدمة."),
+            SolutionStep(order: 5, title: "استعن بكهربائي مختص", text: "إذا كان الانقطاع في المنزل وحده ولم تُحل المشكلة بعد التحقق من القواطع، يجب الاستعانة بكهربائي مختص.")
+        ]
+    )
+
+    static let clickingBurningSmell = DiagnosisProblem(
+        id: "breakers-clicking-burning-smell",
+        title: "انقطاع الكهرباء مع صدور صوت طقطقة أو رائحة احتراق",
+        description: "",
+        illustrationAsset: "breakers_clicking_burning_smell",
+        questions: [
+            DiagnosisQuestion(id: "breakers-clicking-burning-smell-q1", text: "هل انقطعت الكهرباء بالتزامن مع صوت طقطقة أو رائحة احتراق؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "breakers-clicking-burning-smell-q2", text: "هل يصدر الصوت أو تظهر الرائحة بالقرب من لوحة القواطع أو أحد المقابس؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "breakers-clicking-burning-smell-q3", text: "هل لاحظتِ آثار احتراق أو دخانًا بالقرب من مصدر الكهرباء؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(order: 1, title: "لا تلمس لوحة القواطع أو المقبس", text: "عدم لمس لوحة القواطع أو المقبس المتضرر."),
+            SolutionStep(order: 2, title: "ابتعد عن المنطقة", text: "الابتعاد عن المنطقة وعدم محاولة إعادة تشغيل القاطع."),
+            SolutionStep(order: 3, title: "اطلب كهربائيًا بصورة عاجلة", text: "طلب كهربائي مختص بصورة عاجلة."),
+            SolutionStep(order: 4, title: "اتصل بالطوارئ عند ظهور دخان", text: "إذا ظهر دخان أو اندلع حريق، يجب الابتعاد عن المكان والاتصال بالطوارئ.")
+        ]
+    )
     static let washerDrumNotSpinning = DiagnosisProblem(
         id: "washer-drum",
         title: "حوض الغسيل لا يدور",
