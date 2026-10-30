@@ -1168,232 +1168,231 @@ enum DiagnosisData {
     )
 
     // MARK: Problems — Water
-
     static let faucetLeak = DiagnosisProblem(
-        id: "faucet-leak",
-        title: "تسرب الصنبور",
-        description: "تسرّب الماء من الصنبور على شكل قطرات مستمرة، أو تجمعه حول المقبض أو قاعدة الصنبور، حتى بعد إغلاقه أو أثناء استخدامه",
-        illustrationAsset: "faucet_leak",
-        questions: [
-            DiagnosisQuestion(id: "faucet-leak-q1", text: "هل تخرج قطرات ماء من فوهة الصنبور رغم إغلاقه بالكامل؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "faucet-leak-q2", text: "هل يستمر تقطير الماء بعد مرور عدة دقائق من إغلاق الصنبور؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "faucet-leak-q3", text: "هل يتكرر تسرب الماء عند استخدام الصنبور وإغلاقه مرة أخرى؟", expectedAnswer: true)
-        ],
-        solutionSteps: [
-            SolutionStep(
-                order: 1,
-                title: "إغلاق مصدر الماء",
-                text: "أغلقي محبسي الماء البارد والساخن أسفل المغسلة، ثم افتحي الصنبور لتخفيف الضغط والتأكد من توقف الماء",
-                illustrationAsset: "leaking_faucet_step1"
-            ),
-            SolutionStep(
-                order: 2,
-                title: "فك مقبض الصنبور",
-                text: "1. أزيلي الغطاء الدائري الصغير الموجود على جانب المقبض، إن وُجد.\n2. أدخلي مفتاح ألن المناسب ولفّيه عكس عقارب الساعة حتى يرتخي مسمار التثبيت.\n3. اسحبي المقبض برفق لإزالته.",
-                illustrationAsset: "leaking_faucet_step2",
-                warning: "لا تحتاجين لإخراج المسمار بالكامل، ولا تسحبي المقبض بالقوة إذا لم يتحرك."
-            ),
-            SolutionStep(
-                order: 3,
-                title: "إزالة الخرطوشة القديمة",
-                text: "1. أزيلي الغطاء المعدني الداخلي، إن وُجد.\n2. فُكّي صامولة تثبيت الخرطوشة عكس عقارب الساعة باستخدام مفتاح مناسب، إذا كان طراز الصنبور يحتوي عليها.\n3. امسكي الجزء العلوي من الخرطوشة واسحبيها للأعلى برفق.\n4. لاحظي اتجاه الخرطوشة قبل إخراجها لتسهيل تركيب الجديدة.",
-                illustrationAsset: "leaking_faucet_step3",
-                warning: "إذا لم تتحرك الخرطوشة، فلا تحاولي لفّها أو سحبها بالقوة. راجعي دليل الصنبور لمعرفة طريقة تثبيتها."
-            ),
-            SolutionStep(
-                order: 4,
-                title: "تركيب الخرطوشة الجديدة",
-                text: "1. تأكدي من توافق الخرطوشة الجديدة مع الصنبور.\n2. أدخليها في مكانها بالاتجاه الصحيح.\n3. أعيدي صامولة التثبيت وأحكمي ربطها دون شد مفرط، إن وُجدت.\n4. أعيدي تركيب الغطاء المعدني والمقبض.",
-                illustrationAsset: "leaking_faucet_step4",
-                warning: "لا تضغطي على الخرطوشة بالقوة إذا لم تدخل بسهولة."
-            ),
-            SolutionStep(
-                order: 5,
-                title: "اختبار الصنبور",
-                text: "افتحي محابس الماء تدريجيًا، ثم شغّلي الصنبور وأغلقيه للتأكد من توقف التقطير وعدم وجود أي تسرب.",
-                illustrationAsset: "leaking_faucet_step5"
-            )
-        ]
-    )
+            id: "faucet-leak",
+            title: "تسرب الصنبور",
+            description: "تسرّب الماء من الصنبور على شكل قطرات مستمرة",
+            illustrationAsset: "water_faucet_leak_icon",
+            questions: [
+                DiagnosisQuestion(id: "faucet-leak-q1", text: "هل تخرج قطرات ماء من فوهة الصنبور رغم إغلاقه بالكامل؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "faucet-leak-q2", text: "هل يستمر تقطير الماء بعد مرور عدة دقائق من إغلاق الصنبور؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "faucet-leak-q3", text: "هل يتكرر تسرب الماء عند استخدام الصنبور وإغلاقه مرة أخرى؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "إغلاق مصدر الماء",
+                    text: "أغلق محبسي الماء البارد والساخن أسفل المغسلة، ثم افتح الصنبور لتخفيف الضغط والتأكد من توقف الماء",
+                    illustrationAsset: "leakingـfaucet_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "فك مقبض الصنبور",
+                    text: "1. أزل الغطاء الدائري الصغير الموجود على جانب المقبض، إن وُجد.\n2. أدخل مفتاح ألن المناسب ولفّه عكس عقارب الساعة حتى يرتخي مسمار التثبيت.\n3. اسحب المقبض برفق لإزالته.",
+                    illustrationAsset: "leakingـfaucet_step2",
+                    warning: "لا تحتاج لإخراج المسمار بالكامل، ولا تسحب المقبض بالقوة إذا لم يتحرك."
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "إزالة الخرطوشة القديمة",
+                    text: "1. أزل الغطاء المعدني الداخلي، إن وُجد.\n2. فُكّ صامولة تثبيت الخرطوشة عكس عقارب الساعة باستخدام مفتاح مناسب، إذا كان طراز الصنبور يحتوي عليها.\n3. امسك الجزء العلوي من الخرطوشة واسحبها للأعلى برفق.\n4. لاحظ اتجاه الخرطوشة قبل إخراجها لتسهيل تركيب الجديدة.",
+                    illustrationAsset: "leakingـfaucet_step3",
+                    warning: "إذا لم تتحرك الخرطوشة، فلا تحاول لفّها أو سحبها بالقوة. راجع دليل الصنبور لمعرفة طريقة تثبيتها."
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "تركيب الخرطوشة الجديدة",
+                    text: "1. تأكد من توافق الخرطوشة الجديدة مع الصنبور.\n2. أدخلها في مكانها بالاتجاه الصحيح.\n3. أعد صامولة التثبيت وأحكم ربطها دون شد مفرط، إن وُجدت.\n4. أعد تركيب الغطاء المعدني والمقبض.",
+                    illustrationAsset: "leakingـfaucet_step4",
+                    warning: "لا تضغط على الخرطوشة بالقوة إذا لم تدخل بسهولة."
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "اختبار الصنبور",
+                    text: "افتح محابس الماء تدريجيًا، ثم شغّل الصنبور وأغلقه للتأكد من توقف التقطير وعدم وجود أي تسرب.",
+                    illustrationAsset: "leakingـfaucet_step5"
+                )
+            ]
+        )
 
-    static let sinkClog = DiagnosisProblem(
-        id: "sink-clog",
-        title: "انسداد المغسلة",
-        description: "تصريف الماء من المغسلة ببطء أو تجمعه داخل الحوض دون نزوله بشكل طبيعي، وقد يحدث ذلك بسبب تراكم الشعر أو بقايا الصابون أو الأوساخ داخل فتحة التصريف أو الأنابيب.",
-        illustrationAsset: "sink_clog",
-        questions: [
-            DiagnosisQuestion(id: "sink-clog-q1", text: "هل تلاحظين أن الماء ينزل من المغسلة ببطء أكثر من المعتاد؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "sink-clog-q2", text: "هل يتجمع الماء داخل المغسلة عند فتح الصنبور؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "sink-clog-q3", text: "هل يستغرق الماء وقتًا طويلًا حتى يختفي من الحوض بعد إغلاق الصنبور؟", expectedAnswer: true)
-        ],
-        solutionSteps: [
-            SolutionStep(
-                order: 1,
-                title: "تنظيف فتحة التصريف",
-                text: "ارتدي قفازات، وأزيلي غطاء التصريف إذا كان قابلًا للإزالة، ثم تخلصي من الشعر والأوساخ الظاهرة حول الفتحة.",
-                illustrationAsset: "sink_clog_step1"
-            ),
-            SolutionStep(
-                order: 2,
-                title: "إزالة الانسداد الداخلي",
-                text: "إذا استمر بطء التصريف، أدخلي أداة تسليك بلاستيكية مخصصة للمغاسل برفق داخل الفتحة، ثم اسحبيها لإزالة الشعر والأوساخ العالقة، إذا كان تصميم المصرف يسمح بذلك.",
-                illustrationAsset: "sink_clog_step2"
-            ),
-            SolutionStep(
-                order: 3,
-                title: "استخدام أداة الشفط",
-                text: "إذا لم يزل الانسداد، غطّي فتحة فائض الماء بقطعة قماش مبللة، وضعي قليلًا من الماء في الحوض، ثم استخدمي شفاط المغسلة بحركات متكررة لمدة 15–30 ثانية.",
-                illustrationAsset: "sink_clog_step3"
-            ),
-            SolutionStep(
-                order: 4,
-                title: "اختبار تصريف الماء",
-                text: "أعيدي غطاء التصريف إلى مكانه، ثم افتحي الصنبور وتحققي من نزول الماء بشكل طبيعي دون تجمعه في الحوض.",
-                illustrationAsset: "sink_clog_step4"
-            )
-        ]
-    )
+        static let sinkClog = DiagnosisProblem(
+            id: "sink-clog",
+            title: "انسداد المغسلة",
+            description: "تصريف الماء من المغسلة ببطء أو تجمعه داخل الحوض دون نزوله بشكل طبيعي",
+            illustrationAsset: "water_sink_slow_drain_icon",
+            questions: [
+                DiagnosisQuestion(id: "sink-clog-q1", text: "هل تلاحظ أن الماء ينزل من المغسلة ببطء أكثر من المعتاد؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "sink-clog-q2", text: "هل يتجمع الماء داخل المغسلة عند فتح الصنبور؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "sink-clog-q3", text: "هل يستغرق الماء وقتًا طويلًا حتى يختفي من الحوض بعد إغلاق الصنبور؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "تنظيف فتحة التصريف",
+                    text: "ارتدي قفازات، وأزل غطاء التصريف إذا كان قابلًا للإزالة، ثم تخلص من الشعر والأوساخ الظاهرة حول الفتحة.",
+                    illustrationAsset: "sink_clog_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "إزالة الانسداد الداخلي",
+                    text: "إذا استمر بطء التصريف، أدخل أداة تسليك بلاستيكية مخصصة للمغاسل برفق داخل الفتحة، ثم اسحبها لإزالة الشعر والأوساخ العالقة، إذا كان تصميم المصرف يسمح بذلك.",
+                    illustrationAsset: "sink_clog_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "استخدام أداة الشفط",
+                    text: "إذا لم يزل الانسداد، قم بتغطية فتحة فائض الماء بقطعة قماش مبللة، وضع قليلًا من الماء في الحوض، ثم استخدم شفاط المغسلة بحركات متكررة لمدة 15–30 ثانية.",
+                    illustrationAsset: "sink_clog_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "اختبار تصريف الماء",
+                    text: "أعد غطاء التصريف إلى مكانه، ثم افتح الصنبور وتحقق من نزول الماء بشكل طبيعي دون تجمعه في الحوض.",
+                    illustrationAsset: "sink_clog_step4"
+                )
+            ]
+        )
 
-    static let showerLowFlow = DiagnosisProblem(
-        id: "shower-low-flow",
-        title: "ضعف تدفق الماء من رأس الدش",
-        description: "خروج الماء من رأس الدش بكمية أقل من المعتاد أو بشكل غير منتظم، مما قد يجعل الاستحمام أصعب. وقد يحدث بسبب تراكم الترسبات الكلسية أو الأوساخ داخل فتحات رأس الدش.",
-        illustrationAsset: "shower_low_flow",
-        questions: [
-            DiagnosisQuestion(id: "shower-low-flow-q1", text: "هل تلاحظين أن الماء يخرج من رأس الدش بكمية أقل من المعتاد؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "shower-low-flow-q2", text: "هل تدفق الماء من رأس الدش ضعيف، بينما يكون طبيعيًا في صنابير المنزل الأخرى؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "shower-low-flow-q3", text: "هل تلاحظين ترسبات بيضاء أو انسدادًا في بعض فتحات رأس الدش؟", expectedAnswer: true)
-        ],
-        solutionSteps: [
-            SolutionStep(
-                order: 1,
-                title: "إغلاق الماء وتنظيف فتحات رأس الدش",
-                text: "أغلقي صنبور الدش تمامًا واتركي رأس الدش يبرد قبل البدء بالتنظيف.\nنظّفي فتحات خروج الماء بأصابعك أو بفرشاة ناعمة لإزالة الترسبات والأوساخ الظاهرة.",
-                illustrationAsset: "shower_low_flow_step1"
-            ),
-            SolutionStep(
-                order: 2,
-                title: "تنظيف الترسبات المتبقية",
-                text: "إذا استمر الانسداد، ضعي محلولًا من الخل الأبيض المخفف بالماء داخل كيس، ثم ثبتيه حول رأس الدش بحيث تُغمر الفتحات، إذا كانت الشركة المصنعة تسمح باستخدام الخل. اتركيه للمدة المحددة في تعليماتها، ثم أزيلي الكيس واشطفي الرأس جيدًا.",
-                illustrationAsset: "shower_low_flow_step2"
-            ),
-            SolutionStep(
-                order: 3,
-                title: "تنظيف المصفاة الداخلية",
-                text: "إذا استمر ضعف التدفق، وكان رأس الدش قابلًا للفك، أزيليه وفق تعليمات طرازه ونظّفي مصفاة مدخل الماء إن وُجدت، ثم أعيدي تركيبها.",
-                illustrationAsset: "shower_low_flow_step3"
-            ),
-            SolutionStep(
-                order: 4,
-                title: "اختبار تدفق الماء",
-                text: "شغّلي الدش وتحققي من خروج الماء بشكل طبيعي ومنتظم، وعدم وجود تسرب عند التوصيلات.",
-                illustrationAsset: "shower_low_flow_step4",
-                warning: "إذا استمر ضعف التدفق بعد التنظيف، أو كان موجودًا في صنابير أخرى، فقد تكون المشكلة من ضغط الماء أو التوصيلات، ويُفضّل الاستعانة بفني مختص."
-            )
-        ]
-    )
+        static let showerLowFlow = DiagnosisProblem(
+            id: "shower-low-flow",
+            title: "ضعف تدفق الماء من رأس الدش",
+            description: "خروج الماء من رأس الدش بكمية أقل من المعتاد ",
+            illustrationAsset: "water_low_pressure_icon",
+            questions: [
+                DiagnosisQuestion(id: "shower-low-flow-q1", text: "هل تلاحظ أن الماء يخرج من رأس الدش بكمية أقل من المعتاد؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "shower-low-flow-q2", text: "هل تدفق الماء من رأس الدش ضعيف، بينما يكون طبيعيًا في صنابير المنزل الأخرى؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "shower-low-flow-q3", text: "هل تلاحظ ترسبات بيضاء أو انسدادًا في بعض فتحات رأس الدش؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "إغلاق الماء وتنظيف فتحات رأس الدش",
+                    text: "1. أغلق صنبور الدش تمامًا واترك رأس الدش يبرد قبل البدء بالتنظيف.\n2. نظّف فتحات خروج الماء بأصابعك أو بفرشاة ناعمة لإزالة الترسبات والأوساخ الظاهرة.",
+                    illustrationAsset: "shower_low_flow_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "تنظيف الترسبات المتبقية",
+                    text: "1. إذا استمر الانسداد، ضع محلولًا من الخل الأبيض المخفف بالماء داخل كيس، ثم ثبته حول رأس الدش بحيث تُغمر الفتحات.\n2. ثم أزل الكيس واشطف الرأس جيدًا.",
+                    illustrationAsset: "shower_low_flow_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "تنظيف المصفاة الداخلية",
+                    text: "إذا استمر ضعف التدفق، وكان رأس الدش قابلًا للفك، أزله وفق تعليمات طرازه ونظّف مصفاة مدخل الماء إن وُجدت، ثم أعد تركيبها.",
+                    illustrationAsset: "shower_low_flow_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "اختبار تدفق الماء",
+                    text: "شغّل الدش وتحقق من خروج الماء بشكل طبيعي ومنتظم، وعدم وجود تسرب عند التوصيلات.",
+                    illustrationAsset: "shower_low_flow_step4",
+                    warning: "إذا استمر ضعف التدفق بعد التنظيف، أو كان موجودًا في صنابير أخرى، فقد تكون المشكلة من ضغط الماء أو التوصيلات، ويُفضّل الاستعانة بفني مختص."
+                )
+            ]
+        )
 
-    static let toiletRunningWater = DiagnosisProblem(
-        id: "toilet-running-water",
-        title: "استمرار تدفق المياه في المرحاض",
-        description: "استمرار نزول الماء داخل المرحاض بعد استخدام السيفون، أو سماع صوت تدفق الماء باستمرار رغم عدم استخدامه، وقد يحدث بسبب خلل في عوامة الماء أو صمام التعبئة أو جلدة التصريف داخل الخزان. هذه الخطوات مخصصة للمرحاض ذي الخزان الظاهر والقابل للفتح. نبدأ بالأجزاء التي يمكن فحصها دون فك التوصيلات.",
-        illustrationAsset: "toilet_running_water",
-        questions: [
-            DiagnosisQuestion(id: "toilet-running-water-q1", text: "هل تلاحظين استمرار نزول الماء داخل المرحاض بعد استخدام السيفون؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "toilet-running-water-q2", text: "هل يستمر صوت تدفق الماء بعد مرور عدة دقائق من استخدام السيفون؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "toilet-running-water-q3", text: "هل تلاحظين نزول الماء أو سماع صوت تعبئة الخزان حتى دون استخدام السيفون؟", expectedAnswer: true)
-        ],
-        solutionSteps: [
-            SolutionStep(
-                order: 1,
-                title: "فحص الخزان",
-                text: "أزيلي غطاء خزان المرحاض بحذر، ثم اضغطي السيفون وراقبي مستوى الماء بعد امتلاء الخزان.",
-                illustrationAsset: "toilet_running_water_step1"
-            ),
-            SolutionStep(
-                order: 2,
-                title: "فحص جلدة التصريف",
-                text: "تأكدي من أن جلدة التصريف الموجودة أسفل الخزان تعود إلى مكانها وتغلق الفتحة بالكامل بعد استخدام السيفون، إذا كان الخزان يحتوي على هذا النوع.",
-                illustrationAsset: "toilet_running_water_step2"
-            ),
-            SolutionStep(
-                order: 3,
-                title: "ضبط سلسلة السيفون",
-                text: "إذا كانت السلسلة مشدودة وتمنع الجلدة من الإغلاق، عدّلي طولها لتبقى مرتخية قليلًا دون أن تتشابك.",
-                illustrationAsset: "toilet_running_water_step3"
-            ),
-            SolutionStep(
-                order: 4,
-                title: "تنظيف جلدة التصريف",
-                text: "أغلقي محبس الماء، ثم اضغطي السيفون لتفريغ الخزان. نظّفي الجلدة وحافة فتحة التصريف من الرواسب برفق، ثم تأكدي من استقرارها في مكانها.",
-                illustrationAsset: "toilet_running_water_step4"
-            ),
-            SolutionStep(
-                order: 5,
-                title: "فحص مستوى العوامة",
-                text: "إذا كان الماء يصب داخل أنبوب الفائض، اضبطي العوامة وفق تعليمات الطراز حتى يتوقف الماء عند المستوى المحدد داخل الخزان، أسفل فتحة الفائض.",
-                illustrationAsset: "toilet_running_water_step5"
-            ),
-            SolutionStep(
-                order: 6,
-                title: "اختبار المرحاض",
-                text: "افتحي محبس الماء، ثم اضغطي السيفون وانتظري امتلاء الخزان. تأكدي من توقف الماء وعدم استمرار تدفقه داخل المرحاض.",
-                illustrationAsset: "toilet_running_water_step6",
-                warning: "إذا كانت الجلدة تالفة أو استمر صمام التعبئة في العمل، فقد تحتاج القطعة إلى الاستبدال. لا تفكي الصمامات أو التوصيلات دون معرفة طرازها. وإذا استمر تدفق الماء، أغلقي محبس التغذية واستعيني بفني."
-            )
-        ]
-    )
+        static let toiletRunningWater = DiagnosisProblem(
+            id: "toilet-running-water",
+            title: "استمرار تدفق المياه في المرحاض",
+            description: "استمرار نزول الماء داخل المرحاض بعد استخدام السيفون، أو سماع صوت تدفق الماء باستمرار رغم عدم استخدامه",
+            illustrationAsset: "water_toilet_running_icon",
+            questions: [
+                DiagnosisQuestion(id: "toilet-running-water-q1", text: "هل تلاحظ استمرار نزول الماء داخل المرحاض بعد استخدام السيفون؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "toilet-running-water-q2", text: "هل يستمر صوت تدفق الماء بعد مرور عدة دقائق من استخدام السيفون؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "toilet-running-water-q3", text: "هل تلاحظ نزول الماء أو سماع صوت تعبئة الخزان حتى دون استخدام السيفون؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "فحص الخزان",
+                    text: "أزل غطاء خزان المرحاض بحذر، ثم اضغط السيفون وراقب مستوى الماء بعد امتلاء الخزان.",
+                    illustrationAsset: "toilet_running_water_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "فحص جلدة التصريف",
+                    text: "تأكد من أن جلدة التصريف الموجودة أسفل الخزان تعود إلى مكانها وتغلق الفتحة بالكامل بعد استخدام السيفون، إذا كان الخزان يحتوي على هذا النوع.",
+                    illustrationAsset: "toilet_running_water_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "ضبط سلسلة السيفون",
+                    text: "إذا كانت السلسلة مشدودة وتمنع الجلدة من الإغلاق، عدّل طولها لتبقى مرتخية قليلًا دون أن تتشابك.",
+                    illustrationAsset: "toilet_running_water_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "تنظيف جلدة التصريف",
+                    text: "1. أغلق محبس الماء، ثم اضغط السيفون لتفريغ الخزان.\n2. نظّف الجلدة وحافة فتحة التصريف من الرواسب برفق، ثم تأكد من استقرارها في مكانها.",
+                    illustrationAsset: "toilet_running_water_step4"
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "فحص مستوى العوامة",
+                    text: "إذا كان الماء يصب داخل أنبوب الفائض، اضبط العوامة وفق تعليمات الطراز حتى يتوقف الماء عند المستوى المحدد داخل الخزان، أسفل فتحة الفائض.",
+                    illustrationAsset: "toilet_running_water_step5"
+                ),
+                SolutionStep(
+                    order: 6,
+                    title: "اختبار المرحاض",
+                    text: "1. افتح محبس الماء، ثم اضغط السيفون وانتظر امتلاء الخزان.\n2. تأكد من توقف الماء وعدم استمرار تدفقه داخل المرحاض.",
+                    illustrationAsset: "toilet_running_water_step6",
+                    warning: "إذا كانت الجلدة تالفة أو استمر صمام التعبئة في العمل، فقد تحتاج القطعة إلى الاستبدال. لا تفك الصمامات أو التوصيلات دون معرفة طرازها. وإذا استمر تدفق الماء، أغلق محبس التغذية واستعن بفني."
+                )
+            ]
+        )
 
-    static let showerConnectionLeak = DiagnosisProblem(
-        id: "shower-connection-leak",
-        title: "تسريب وصلة رأس الدش",
-        description: "تسرب الماء من نقطة اتصال رأس الدش بالأنبوب أو الخرطوم أثناء تشغيله، وقد يحدث بسبب ارتخاء الوصلة أو تلف حلقة الإحكام أو عدم إحكام القلاوظ.",
-        illustrationAsset: "shower_connection_leak",
-        questions: [
-            DiagnosisQuestion(id: "shower-connection-leak-q1", text: "هل تلاحظين خروج الماء من الوصلة المتصلة برأس الدش أثناء تشغيله؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "shower-connection-leak-q2", text: "هل تتجمع قطرات الماء حول صامولة الوصلة أو تتساقط منها؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "shower-connection-leak-q3", text: "هل يستمر التسرب من الوصلة أثناء تدفق الماء، حتى دون تحريك رأس الدش؟", expectedAnswer: true)
-        ],
-        solutionSteps: [
-            SolutionStep(
-                order: 1,
-                title: "إغلاق الماء",
-                text: "أغلقي صنبور الدش تمامًا، وانتظري حتى يبرد رأس الدش قبل البدء.",
-                illustrationAsset: "shower_connection_leak_step1"
-            ),
-            SolutionStep(
-                order: 2,
-                title: "فك رأس الدش",
-                text: "أمسكي أنبوب الدش بثبات، ثم لفّي صامولة رأس الدش عكس عقارب الساعة لفكها. استخدمي مفتاحًا مناسبًا مع قطعة قماش لحماية السطح عند الحاجة.",
-                illustrationAsset: "shower_connection_leak_step2"
-            ),
-            SolutionStep(
-                order: 3,
-                title: "فحص الوصلة",
-                text: "افحصي القلاوظ وحلقة الإحكام المطاطية، إن وُجدت. تأكدي من عدم وجود تشققات أو تلف أو أوساخ تمنع إحكام الاتصال.",
-                illustrationAsset: "shower_connection_leak_step3"
-            ),
-            SolutionStep(
-                order: 4,
-                title: "تنظيف الوصلة",
-                text: "أزيلي بقايا شريط العزل القديم والرواسب من القلاوظ بقطعة قماش أو فرشاة مناسبة، دون خدش الوصلة.",
-                illustrationAsset: "shower_connection_leak_step4"
-            ),
-            SolutionStep(
-                order: 5,
-                title: "إعادة إحكام الوصلة",
-                text: "إذا كان طراز رأس الدش يتطلب شريط عزل، لفّي شريط السباكة باتجاه عقارب الساعة حول القلاوظ مرتين إلى ثلاث مرات، ثم أعيدي تركيب الرأس وأحكمي ربطه دون شد مفرط.\nأما الوصلات التي تعتمد على جلدة مطاطية، فتأكدي من سلامتها وتركيبها الصحيح، ولا تضيفي الشريط إلا إذا أوصى دليل الطراز بذلك.",
-                illustrationAsset: "shower_connection_leak_step5"
-            ),
-            SolutionStep(
-                order: 6,
-                title: "اختبار التسرب",
-                text: "شغّلي الدش وراقبي الوصلة للتأكد من توقف تسرب الماء وعدم ظهور قطرات حولها.",
-                illustrationAsset: "shower_connection_leak_step6",
-                warning: "إذا ظهرت تشققات في الصامولة أو الوصلة، أو استمر التسرب بعد إعادة التركيب، أوقفي الاستخدام واستعيني بفني مختص."
-            )
-        ]
-    )
+        static let showerConnectionLeak = DiagnosisProblem(
+            id: "shower-connection-leak",
+            title: "تسريب وصلة رأس الدش",
+            description: "تسرب الماء من نقطة اتصال رأس الدش بالأنبوب أو الخرطوم أثناء تشغيله",
+            illustrationAsset: "water_shower_clog_icon",
+            questions: [
+                DiagnosisQuestion(id: "shower-connection-leak-q1", text: "هل تلاحظ خروج الماء من الوصلة المتصلة برأس الدش أثناء تشغيله؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "shower-connection-leak-q2", text: "هل تتجمع قطرات الماء حول صامولة الوصلة أو تتساقط منها؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "shower-connection-leak-q3", text: "هل يستمر التسرب من الوصلة أثناء تدفق الماء، حتى دون تحريك رأس الدش؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "إغلاق الماء",
+                    text: "أغلق صنبور الدش تمامًا، وانتظر حتى يبرد رأس الدش قبل البدء.",
+                    illustrationAsset: "shower_connection_leak_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "فك رأس الدش",
+                    text: "1. أمسك أنبوب الدش بثبات، ثم لفّ صامولة رأس الدش عكس عقارب الساعة لفكها.\n2. استخدم مفتاحًا مناسبًا مع قطعة قماش لحماية السطح عند الحاجة.",
+                    illustrationAsset: "shower_connection_leak_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "فحص الوصلة",
+                    text: "1. افحص القلاوظ وحلقة الإحكام المطاطية، إن وُجدت.\n2. تأكد من عدم وجود تشققات أو تلف أو أوساخ تمنع إحكام الاتصال.",
+                    illustrationAsset: "shower_connection_leak_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "تنظيف الوصلة",
+                    text: "أزل بقايا شريط العزل القديم والرواسب من القلاوظ بقطعة قماش أو فرشاة مناسبة، دون خدش الوصلة.",
+                    illustrationAsset: "shower_connection_leak_step4"
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "إعادة إحكام الوصلة",
+                    text: "1. إذا كان طراز رأس الدش يتطلب شريط عزل، لفّ شريط السباكة باتجاه عقارب الساعة حول القلاوظ مرتين إلى ثلاث مرات، ثم أعد تركيب الرأس وأحكم ربطه دون شد مفرط.\n2. أما الوصلات التي تعتمد على جلدة مطاطية، فتأكد من سلامتها وتركيبها الصحيح، ولا تضف الشريط إلا إذا أوصى دليل الطراز بذلك.",
+                    illustrationAsset: "shower_connection_leak_step5"
+                ),
+                SolutionStep(
+                    order: 6,
+                    title: "اختبار التسرب",
+                    text: "شغّل الدش وراقب الوصلة للتأكد من توقف تسرب الماء وعدم ظهور قطرات حولها.",
+                    illustrationAsset: "shower_connection_leak_step6",
+                    warning: "إذا ظهرت تشققات في الصامولة أو الوصلة، أو استمر التسرب بعد إعادة التركيب، أوقف الاستخدام واستعن بفني مختص."
+                )
+            ]
+        )
 
     // MARK: - Template for new problems
     //
