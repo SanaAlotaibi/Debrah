@@ -56,16 +56,30 @@ final class Router {
 /// الجذر الوحيد للتنقل في التطبيق. لا توجد أي `NavigationStack` أخرى.
 struct ContentView: View {
     @State private var router = Router()
+    @State private var showWelcome = true
 
     var body: some View {
-        NavigationStack(path: $router.path) {
-            ServicesView()
-                .navigationDestination(for: Route.self) { route in
-                    destination(for: route)
+        ZStack {
+            NavigationStack(path: $router.path) {
+                ServicesView()
+                    .navigationDestination(for: Route.self) { route in
+                        destination(for: route)
+                    }
+            }
+            .tint(Theme.mintAction)
+            .accessibilityHidden(showWelcome)
+
+            if showWelcome {
+                WelcomeView {
+                    withAnimation(.easeInOut(duration: 0.7)) {
+                        showWelcome = false
+                    }
                 }
+                .transition(.opacity)
+                .zIndex(1)
+            }
         }
         .environment(router)
-        .tint(Theme.mintAction)
         // The whole app is Arabic / right-to-left.
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))

@@ -14,42 +14,61 @@ struct ServicesView: View {
         ZStack {
             ScreenBackground()
 
-            ScrollView {
-                VStack(spacing: Theme.Spacing.xxl) {
-                    ScreenTitle("الخدمات")
-                        .padding(.top, Theme.Spacing.xl)
+            GeometryReader { proxy in
+                ScrollView {
+                    VStack(spacing: Theme.Spacing.xxl) {
+                        header
+                            .padding(.top, Theme.Spacing.xl)
 
-                    // RTL: the first service sits on the right.
-                    LazyVGrid(columns: columns, spacing: Theme.Spacing.xl) {
-                        ForEach(DiagnosisData.services) { service in
-                            NavigationLink(value: Route.category(categoryID: service.id)) {
-                                ServiceCard(service: service)
+                        Spacer(minLength: 0)
+
+                        // RTL: the first service sits on the right.
+                        LazyVGrid(columns: columns, spacing: Theme.Spacing.xl) {
+                            ForEach(DiagnosisData.services) { service in
+                                NavigationLink(value: Route.category(categoryID: service.id)) {
+                                    ServiceCard(service: service)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
+
+                        Spacer(minLength: 0)
                     }
+                    .padding(.horizontal, Theme.Spacing.lg)
+                    .padding(.bottom, Theme.Spacing.xxl)
+                    // يجعل المحتوى بارتفاع الشاشة على الأقل، فتتوسط الشبكة.
+                    .frame(minHeight: proxy.size.height)
                 }
-                .padding(.horizontal, Theme.Spacing.lg)
-                .padding(.bottom, Theme.Spacing.xxl)
+                .scrollBounceBehavior(.basedOnSize)
+                .scrollIndicators(.hidden)
             }
-            .scrollBounceBehavior(.basedOnSize)
-            .scrollIndicators(.hidden)
         }
         .toolbar(.hidden, for: .navigationBar)
+    }
+
+    // MARK: Header
+
+    private var header: some View {
+        VStack(spacing: Theme.Spacing.xs) {
+            ScreenTitle("الخدمات")
+
+            Text("اختر نوع المشكلة لنبدأ الحل")
+                .typography(.body)
+                .foregroundStyle(Theme.mintLabel)
+                .multilineTextAlignment(.center)
+        }
     }
 }
 
 // MARK: - Service Card
 
-/// بطاقة خدمة: أيقونة، واسم الخدمة، ورقاقة «استكشف».
-///
-/// البطاقة كلها قابلة للضغط؛ «استكشف» شكل فقط.
+
 struct ServiceCard: View {
 
     let service: ServiceCategory
 
-    @ScaledMetric(relativeTo: .largeTitle) private var iconSize: CGFloat = 52
-    @ScaledMetric(relativeTo: .body) private var minHeight: CGFloat = 220
+    @ScaledMetric(relativeTo: .largeTitle) private var iconSize: CGFloat = 60
+    @ScaledMetric(relativeTo: .body) private var minHeight: CGFloat = 250
 
     var body: some View {
         VStack(spacing: Theme.Spacing.md) {

@@ -538,9 +538,9 @@ enum DiagnosisData {
         title: "المكانس الكهربائية",
         imageName: "device_vacuum",
         problems: [
-            .pending(id: "vacuum-loud-noise", title: "ارتفاع صوت المكنسة", image: "vacuum_loud_noise"),
-            .pending(id: "vacuum-dirty-filter", title: "اتساخ فلتر المكنسة الكهربائية", image: "vacuum_dirty_filter"),
-            .pending(id: "vacuum-clogged-hose", title: "انسداد خرطوم المكنسة أو رأسها", image: "vacuum_clogged_hose")
+            vacuumLoudNoise,
+            vacuumDirtyFilter,
+            vacuumCloggedHose
         ]
     )
 
@@ -564,7 +564,7 @@ enum DiagnosisData {
         illustrationAsset: "drawer_loose",
         questions: [
             DiagnosisQuestion(id: "drawer-loose-q1", text: "هل يتحرك درج الخزانة أو السكة من مكان تثبيتها عند سحبه؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "drawer-loose-q2", text: "هل لاحظتِ وجود مسامير مفكوكة أو ساقطة في أسفل الدرج أو على الجوانب؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "drawer-loose-q2", text: "هل لاحظت وجود مسامير مفكوكة أو ساقطة في أسفل الدرج أو على الجوانب؟", expectedAnswer: true),
             DiagnosisQuestion(id: "drawer-loose-q3", text: "هل صوت احتكاك الخشب ببعضه واضح ومزعج عند فتح وإغلاق الدرج؟", expectedAnswer: true)
         ],
         solutionSteps: [
@@ -1148,6 +1148,143 @@ enum DiagnosisData {
         ]
     )
 
+    // MARK: Problems — Vacuum Cleaners
+
+    static let vacuumLoudNoise = DiagnosisProblem(
+        id: "vacuum-loud-noise",
+        title: "ارتفاع صوت المكنسة بسبب انسداد مسار الهواء",
+        description: "تصدر المكنسة صوتًا أعلى من المعتاد أثناء التشغيل، وقد يكون السبب انسداد مسار الهواء نتيجة تراكم الغبار أو الأوساخ.",
+        illustrationAsset: "vacuum_loud_noise",
+        questions: [
+            DiagnosisQuestion(id: "vacuum-loud-noise-q1", text: "هل أصبح صوت المكنسة أعلى من المعتاد أثناء التشغيل؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "vacuum-loud-noise-q2", text: "هل لاحظت ضعفًا في قوة الشفط بالتزامن مع ارتفاع الصوت؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "vacuum-loud-noise-q3", text: "هل توجد أوساخ متراكمة أو انسدادات ظاهرة في حاوية الغبار أو الخرطوم أو رأس المكنسة؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "فصل الكهرباء",
+                text: "أوقف تشغيل المكنسة وافصل القابس من مصدر الكهرباء قبل البدء بالفحص."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "فحص مسار الهواء",
+                text: "افحص حاوية الغبار والخرطوم ورأس المكنسة والفلتر، بحثًا عن الأوساخ أو الأجسام التي قد تعيق مرور الهواء.",
+                illustrationAsset: "Vacuum_clean_step2",
+            ),
+            SolutionStep(
+                order: 3,
+                title: "إزالة الأوساخ والانسدادات",
+                text: "أفرغ حاوية الغبار، وأزل الأوساخ والانسدادات الظاهرة من الأجزاء التي يسمح دليل الجهاز بتنظيفها.",
+                illustrationAsset: "Vacuum_clean_step3",
+            ),
+            SolutionStep(
+                order: 4,
+                title: "إعادة تركيب الأجزاء",
+                text: "تأكد من جفاف الأجزاء التي غُسلت تمامًا، ثم أعد تركيب الحاوية والخرطوم والفلتر ورأس المكنسة بشكل صحيح."
+            ),
+            SolutionStep(
+                order: 5,
+                title: "اختبار المكنسة",
+                text: "شغّل المكنسة لفترة قصيرة، وتحقق من عودة الصوت إلى مستواه المعتاد وتحسن قوة الشفط.",
+                warning: "إذا استمر الصوت المرتفع، أو ظهرت رائحة احتراق أو سخونة غير طبيعية، فأوقف المكنسة وافصلها عن الكهرباء، واستعن بفني مختص."
+            )
+        ]
+    )
+
+    static let vacuumDirtyFilter = DiagnosisProblem(
+        id: "vacuum-dirty-filter",
+        title: "اتساخ فلتر المكنسة الكهربائية",
+        description: "قد يؤدي تراكم الغبار والأوساخ داخل فلتر المكنسة إلى تقليل تدفق الهواء وإضعاف قوة الشفط.",
+        illustrationAsset: "vacuum_dirty_filter",
+        questions: [
+            DiagnosisQuestion(id: "vacuum-dirty-filter-q1", text: "هل أصبحت قوة شفط المكنسة أضعف من المعتاد؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "vacuum-dirty-filter-q2", text: "هل تلاحظ تراكم الغبار أو الأوساخ على فلتر المكنسة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "vacuum-dirty-filter-q3", text: "هل لا يزال الشفط ضعيفًا رغم تفريغ حاوية الغبار والتأكد من عدم انسداد الخرطوم؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "فصل الكهرباء",
+                text: "أوقف تشغيل المكنسة وافصل القابس من مصدر الكهرباء قبل البدء بالتنظيف."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "تحديد مكان الفلتر",
+                text: "راجع دليل المكنسة لمعرفة موقع الفلتر وطريقة إخراجه، ثم أزله برفق وفق التعليمات."
+                
+            ),
+            SolutionStep(
+                order: 3,
+                title: "إزالة الغبار المتراكم",
+                text: "أزل الغبار والأوساخ باستخدام فرشاة ناعمة أو بالطريقة المناسبة لنوع الفلتر، دون إتلاف طبقاته.",
+                illustrationAsset: "Vacuum_clean_step3",
+            ),
+            SolutionStep(
+                order: 4,
+                title: "غسل الفلتر عند السماح بذلك",
+                text: "إذا كان الفلتر قابلًا للغسل، نظّفه بالماء وفق تعليمات الشركة المصنّعة. أما إذا كان غير قابل للغسل، فاكتفِ بطريقة التنظيف المسموح بها أو استبدله عند الحاجة."
+            ),
+            SolutionStep(
+                order: 5,
+                title: "تجفيف الفلتر",
+                text: "اترك الفلتر المغسول حتى يجف تمامًا، مع الالتزام بمدة التجفيف المحددة في دليل المكنسة."
+            ),
+            SolutionStep(
+                order: 6,
+                title: "إعادة التركيب واختبار الشفط",
+                text: "أعد الفلتر إلى مكانه بشكل صحيح، ثم شغّل المكنسة وتحقق من تحسن قوة الشفط.",
+                warning: "لا تغسل الفلاتر غير القابلة للغسل، ولا تشغّل المكنسة بفلتر رطب أو دون الفلاتر المطلوبة."
+            )
+        ]
+    )
+
+    static let vacuumCloggedHose = DiagnosisProblem(
+        id: "vacuum-clogged-hose",
+        title: "انسداد خرطوم المكنسة أو رأسها",
+        description: "قد تتجمع الأوساخ أو الأجسام الصغيرة داخل خرطوم المكنسة أو رأسها، مما يعيق مرور الهواء ويضعف قوة الشفط.",
+        illustrationAsset: "vacuum_clogged_hose",
+        questions: [
+            DiagnosisQuestion(id: "vacuum-clogged-hose-q1", text: "هل أصبحت قوة شفط المكنسة أضعف من المعتاد؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "vacuum-clogged-hose-q2", text: "هل توجد أوساخ أو أجسام عالقة داخل الخرطوم أو في فتحات رأس المكنسة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "vacuum-clogged-hose-q3", text: "هل يستمر ضعف الشفط رغم تفريغ حاوية الغبار والتأكد من نظافة الفلتر؟", expectedAnswer: true)
+        ],
+        solutionSteps: [
+            SolutionStep(
+                order: 1,
+                title: "فصل الكهرباء",
+                text: "أوقف تشغيل المكنسة وافصل القابس من مصدر الكهرباء قبل البدء بالفحص."
+            ),
+            SolutionStep(
+                order: 2,
+                title: "فصل الخرطوم ورأس المكنسة",
+                text: "افصل الخرطوم ورأس المكنسة برفق، إذا كانا قابلين للفصل، وفق تعليمات الجهاز."
+            ),
+            SolutionStep(
+                order: 3,
+                title: "فحص أماكن الانسداد",
+                text: "افحص الخرطوم من طرفيه، وتحقق من فتحات رأس المكنسة بحثًا عن الأوساخ أو الشعر أو الأجسام العالقة.",
+                illustrationAsset: "Vacuum_clean_step2",
+            ),
+            SolutionStep(
+                order: 4,
+                title: "إزالة الانسداد",
+                text: "أزل الأوساخ والأجسام العالقة برفق باستخدام أداة تنظيف مناسبة غير حادة، مع تجنب دفعها إلى داخل الخرطوم أو إتلاف أجزائه."
+            ),
+            SolutionStep(
+                order: 5,
+                title: "إعادة تركيب الأجزاء",
+                text: "بعد التأكد من إزالة الانسداد، أعد توصيل الخرطوم ورأس المكنسة وتحقق من تثبيتهما بإحكام."
+            ),
+            SolutionStep(
+                order: 6,
+                title: "اختبار قوة الشفط",
+                text: "شغّل المكنسة لفترة قصيرة، وتحقق من عودة قوة الشفط إلى مستواها الطبيعي.",
+                warning: "تجنب استخدام الأدوات الحادة أو المعدنية التي قد تثقب الخرطوم أو تتلف الأجزاء الداخلية. وإذا تعذر إخراج جسم عالق، فلا تحاول دفعه بالقوة."
+            )
+        ]
+    )
+
     // MARK: Problems — Water Heaters
 
     static let heaterInstall = DiagnosisProblem(
@@ -1366,9 +1503,9 @@ enum DiagnosisData {
         description: "",
         illustrationAsset: "lighting_bulb_mismatch",
         questions: [
-            DiagnosisQuestion(id: "lighting-bulb-mismatch-q1", text: "هل اشتريتِ لمبة جديدة لاستبدال القديمة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "lighting-bulb-mismatch-q1", text: "هل اشتريت لمبة جديدة لاستبدال القديمة؟", expectedAnswer: true),
             DiagnosisQuestion(id: "lighting-bulb-mismatch-q2", text: "هل قاعدة اللمبة الجديدة لا تتناسب مع وحدة الإنارة؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "lighting-bulb-mismatch-q3", text: "هل يمكنكِ قراءة مواصفات اللمبة المناسبة من ملصق وحدة الإنارة؟", expectedAnswer: true)
+            DiagnosisQuestion(id: "lighting-bulb-mismatch-q3", text: "هل يمكنك قراءة مواصفات اللمبة المناسبة من ملصق وحدة الإنارة؟", expectedAnswer: true)
         ],
         solutionSteps: [
             SolutionStep(order: 1, title: "اقرأ مواصفات وحدة الإنارة", text: "قراءة نوع القاعدة والقدرة المسموح بها على ملصق وحدة الإنارة."),
@@ -1404,7 +1541,7 @@ enum DiagnosisData {
         illustrationAsset: "outlets_device_not_working",
         questions: [
             DiagnosisQuestion(id: "outlets-device-not-working-q1", text: "هل الجهاز لا يعمل عند توصيله بالمقبس؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "outlets-device-not-working-q2", text: "هل تأكدتِ من تشغيل الجهاز وتوصيله بالطريقة الصحيحة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-device-not-working-q2", text: "هل تأكدت من تشغيل الجهاز وتوصيله بالطريقة الصحيحة؟", expectedAnswer: true),
             DiagnosisQuestion(id: "outlets-device-not-working-q3", text: "هل يعمل الجهاز عند تجربته في مقبس آخر سليم وجاف؟", expectedAnswer: true)
         ],
         solutionSteps: [
@@ -1421,9 +1558,9 @@ enum DiagnosisData {
         description: "",
         illustrationAsset: "outlets_plug_hot",
         questions: [
-            DiagnosisQuestion(id: "outlets-plug-hot-q1", text: "هل لاحظتِ سخونة غير طبيعية في القابس أو التوصيلة؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-plug-hot-q1", text: "هل لاحظت سخونة غير طبيعية في القابس أو التوصيلة؟", expectedAnswer: true),
             DiagnosisQuestion(id: "outlets-plug-hot-q2", text: "هل تستمر السخونة أثناء استخدام الجهاز؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "outlets-plug-hot-q3", text: "هل لاحظتِ تغيرًا في لون البلاستيك أو تشوهًا في القابس أو التوصيلة؟", expectedAnswer: true)
+            DiagnosisQuestion(id: "outlets-plug-hot-q3", text: "هل لاحظت تغيرًا في لون البلاستيك أو تشوهًا في القابس أو التوصيلة؟", expectedAnswer: true)
         ],
         solutionSteps: [
             SolutionStep(order: 1, title: "توقف عن الاستخدام", text: "التوقف عن استخدام الجهاز والتوصيلة."),
@@ -1439,9 +1576,9 @@ enum DiagnosisData {
         description: "",
         illustrationAsset: "outlets_sparks",
         questions: [
-            DiagnosisQuestion(id: "outlets-sparks-q1", text: "هل لاحظتِ شررًا عند توصيل القابس بالمقبس؟", expectedAnswer: true),
+            DiagnosisQuestion(id: "outlets-sparks-q1", text: "هل لاحظت شررًا عند توصيل القابس بالمقبس؟", expectedAnswer: true),
             DiagnosisQuestion(id: "outlets-sparks-q2", text: "هل تكرر الشرر أو صاحبه صوت طقطقة؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "outlets-sparks-q3", text: "هل لاحظتِ رائحة احتراق أو آثارًا سوداء حول المقبس؟", expectedAnswer: true)
+            DiagnosisQuestion(id: "outlets-sparks-q3", text: "هل لاحظت رائحة احتراق أو آثارًا سوداء حول المقبس؟", expectedAnswer: true)
         ],
         solutionSteps: [
             SolutionStep(order: 1, title: "لا تكرر التوصيل", text: "عدم تكرار توصيل القابس لاختبار المشكلة."),
@@ -1499,7 +1636,7 @@ enum DiagnosisData {
         questions: [
             DiagnosisQuestion(id: "breakers-clicking-burning-smell-q1", text: "هل انقطعت الكهرباء بالتزامن مع صوت طقطقة أو رائحة احتراق؟", expectedAnswer: true),
             DiagnosisQuestion(id: "breakers-clicking-burning-smell-q2", text: "هل يصدر الصوت أو تظهر الرائحة بالقرب من لوحة القواطع أو أحد المقابس؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "breakers-clicking-burning-smell-q3", text: "هل لاحظتِ آثار احتراق أو دخانًا بالقرب من مصدر الكهرباء؟", expectedAnswer: true)
+            DiagnosisQuestion(id: "breakers-clicking-burning-smell-q3", text: "هل لاحظت آثار احتراق أو دخانًا بالقرب من مصدر الكهرباء؟", expectedAnswer: true)
         ],
         solutionSteps: [
             SolutionStep(order: 1, title: "لا تلمس لوحة القواطع أو المقبس", text: "عدم لمس لوحة القواطع أو المقبس المتضرر."),
