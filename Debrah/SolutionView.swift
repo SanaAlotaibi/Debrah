@@ -120,10 +120,7 @@ struct SolutionView: View {
 
 // MARK: - Step Card
 
-/// بطاقة خطوة واحدة: رقم الخطوة، والنص، والصورة، والملاحظة، ومؤشر الصفحات.
-// MARK: - Step Card
-
-/// بطاقة خطوة واحدة: رقم الخطوة، والنص، والصورة، والملاحظة، ومؤشر الصفحات.
+/// بطاقة خطوة واحدة: رقم الخطوة، والنص، والصور (إن وُجدت)، والملاحظة، ومؤشر الصفحات.
 struct SolutionStepCard: View {
 
     let step: SolutionStep
@@ -155,7 +152,10 @@ struct SolutionStepCard: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    stepImage
+                    // منطقة الصور تظهر فقط إذا كان للخطوة صورة واحدة على الأقل.
+                    if !availableImages.isEmpty {
+                        stepImages
+                    }
 
                     if let warning = step.warning {
                         Text(warning)
@@ -178,33 +178,27 @@ struct SolutionStepCard: View {
         .cardSurface(cornerRadius: Theme.Radius.largeCard, shadowOpacity: Theme.Shadow.raisedCard)
     }
 
-    /// صورة الخطوة، أو مكان فارغ بأيقونة إذا لم تُضف بعد (تظهر كاملة بوضع Fit دون قص).
-        private var stepImage: some View {
-            Group {
-                if let name = step.illustrationAsset, UIImage(named: name) != nil {
-                    Image(name)
-                        .resizable()
-                        .scaledToFit() // تعرض الصورة كاملة 100% دون قص أي جزء
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 230) // ارتفاع ممتاز ومناسب داخل الكارد
-                        .padding(.vertical, 4) // مسافة بسيطة لتبدو مريحة للعين
-                } else {
-                    Rectangle()
-                        .fill(Theme.mintButton.opacity(0.35))
-                        .overlay {
-                            Image(systemName: "photo")
-                                .font(.largeTitle)
-                                .foregroundStyle(Theme.mintLabel)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 180)
-                }
+    /// الصور الموجودة فعلاً في Assets لهذه الخطوة.
+    private var availableImages: [String] {
+        step.allIllustrations.filter { UIImage(named: $0) != nil }
+    }
+
+    /// صور الخطوة (واحدة أو أكثر)، تظهر كاملة بدون قص.
+    private var stepImages: some View {
+        VStack(spacing: Theme.Spacing.md) {
+            ForEach(availableImages, id: \.self) { name in
+                Image(name)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: 230)
+                    .padding(.vertical, 4)
+                    .background(Color.white.opacity(0.5))
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.image, style: .continuous))
             }
-            .frame(maxWidth: .infinity)
-            .background(Color.white.opacity(0.5)) // خلفية ناعمة خفيفة متناسقة مع تصميم التطبيق
-            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.image, style: .continuous))
-            .accessibilityHidden(true)
         }
+        .frame(maxWidth: .infinity)
+        .accessibilityHidden(true)
+    }
 }
 
 // MARK: - Page Indicator
