@@ -433,9 +433,9 @@ enum DiagnosisData {
         icon: "homekit",
         problems: [
             looseDrawer,
-            doorTilt
-            // chairWobble,
-            // doorHandleLoose
+            doorTilt,
+             chairWobble,
+            doorHandleLoose
         ]
     )
 
@@ -558,99 +558,197 @@ enum DiagnosisData {
     // MARK: Problems — Furniture
 
     static let looseDrawer = DiagnosisProblem(
-        id: "drawer-loose",
-        title: "ارتخاء الأدراج",
-        description: "قد يصبح الدرج مائلاً أو غير ثابت، مما يصعب فتحه وإغلاقه بسلاسة. غالباً بسبب ارتخاء المسامير أو تلف مسارات الدرج.",
-        illustrationAsset: "drawer_loose",
-        questions: [
-            DiagnosisQuestion(id: "drawer-loose-q1", text: "هل يتحرك درج الخزانة أو السكة من مكان تثبيتها عند سحبه؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "drawer-loose-q2", text: "هل لاحظت وجود مسامير مفكوكة أو ساقطة في أسفل الدرج أو على الجوانب؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "drawer-loose-q3", text: "هل صوت احتكاك الخشب ببعضه واضح ومزعج عند فتح وإغلاق الدرج؟", expectedAnswer: true)
-        ],
-        solutionSteps: [
-            SolutionStep(
-                order: 1,
-                title: "أفرغ الدرج",
-                text: "أخرج جميع الأغراض من الدرج لتخفيف وزنه وتسهيل فحصه.",
-                illustrationAsset: "drawer_step1"
-            ),
-            SolutionStep(
-                order: 2,
-                title: "أخرج الدرج من مكانه",
-                text: "اسحب الدرج بحذر، وإذا كانت له آلية تحرير للمسارات، اتبع تعليمات الشركة المصنعة لإخراجه بأمان.",
-                illustrationAsset: "drawer_step2"
-            ),
-            SolutionStep(
-                order: 3,
-                title: "افحص براغي التثبيت",
-                text: "افحص البراغي التي تثبت المسارات بجوانب الدرج وهيكل الدولاب، وتحقق من وجود براغٍ مرتخية.",
-                illustrationAsset: "drawer_step3"
-            ),
-            SolutionStep(
-                order: 4,
-                title: "أحكم تثبيت البراغي",
-                text: "استخدم المفك المناسب لشد البراغي المرتخية برفق، دون المبالغة في الشد حتى لا تتلف فتحات التثبيت.",
-                illustrationAsset: "drawer_step4"
-            ),
-            SolutionStep(
-                order: 5,
-                title: "أعد تركيب الدرج",
-                text: "أعد الدرج إلى مساراته، وتأكد من دخوله في مكانه الصحيح.",
-                illustrationAsset: "drawer_step5"
-            ),
-            SolutionStep(
-                order: 6,
-                title: "اختبر حركة الدرج",
-                text: "افتح الدرج وأغلقه عدة مرات، وتحقق من استقامته وسلاسة حركته.",
-                illustrationAsset: "drawer_step6"
-            )
-        ]
-    )
+            id: "drawer-loose",
+            title: "ارتخاء الأدراج",
+            description: "قد يصبح الدرج مائلاً أو غير ثابت، مما يصعب فتحه وإغلاقه بسلاسة. غالباً بسبب ارتخاء المسامير أو تلف مسارات الدرج.",
+            illustrationAsset: "drawer_loose",
+            questions: [
+                DiagnosisQuestion(id: "drawer-loose-q1", text: "هل تلاحظين أن الدرج يهتز أو يتحرك من جانب إلى آخر عند سحبه؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "drawer-loose-q2", text: "هل يميل الدرج إلى أحد الجانبين أثناء فتحه أو إغلاقه؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "drawer-loose-q3", text: "هل تشعرين بأن الدرج غير ثابت على مساره عند تحريكه؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "إفراغ الدرج",
+                    text: "أخرجي جميع الأغراض من الدرج لتخفيف وزنه وتسهيل فحصه.",
+                    illustrationAsset: "drawer_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "إزالة الدرج",
+                    text: "اسحبي الدرج للخارج، ثم حرري مشابك السحّابات إن وُجدت، وأخرجيه برفق حسب طريقة طرازه.",
+                    illustrationAsset: "drawer_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "فحص السحّابات",
+                    text: "افحصي السحّابات المعدنية على جانبي الدرج وداخل الخزانة، وحددي البراغي المرتخية أو المفقودة.",
+                    illustrationAsset: "drawer_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "تثبيت البراغي",
+                    text: "استخدمي مفكًا مناسبًا لشد البراغي المرتخية باتجاه عقارب الساعة، دون شد مفرط أو تغيير محاذاة السحّابات.",
+                    illustrationAsset: "drawer_step4",
+                    warning: "تنبيه: إذا كانت فتحات البراغي متآكلة، أو السحّابات مكسورة أو منحنية، فلا تكتفي بشد البراغي؛ فقد يحتاج الدرج إلى إصلاح إضافي أو استبدال السحّابات."
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "إعادة تركيب الدرج",
+                    text: "حاذي الدرج مع السحّابات على الجانبين، ثم ادفعيه برفق حتى يستقر في مكانه وتتعشق مشابك التثبيت إن وُجدت.",
+                    illustrationAsset: "drawer_step5"
+                ),
+                SolutionStep(
+                    order: 6,
+                    title: "اختبار الدرج",
+                    text: "افتحي الدرج وأغلقيه عدة مرات، وتأكدي من ثباته وحركته بسلاسة دون اهتزاز أو ميلان.",
+                    illustrationAsset: "drawer_step6"
+                )
+            ]
+        )
 
     static let doorTilt = DiagnosisProblem(
-        id: "door-tilt",
-        title: "ميلان الأبواب",
-        description: "يظهر ميلان في الأبواب مما يمنع إغلاقها بإحكام أو الاحتكاك بالأرضية، وغالباً ما يحتاج تعديل المفصلات.",
-        illustrationAsset: "door_tilt",
-        questions: [
-            DiagnosisQuestion(id: "door-tilt-q1", text: "هل يحتك الباب بالأرض عند فتحه أو إغلاقه؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "door-tilt-q2", text: "هل توجد براغٍ مرتخية أو مفصلات غير مثبتة بإحكام في الباب؟", expectedAnswer: true),
-            DiagnosisQuestion(id: "door-tilt-q3", text: "هل تلاحظ أن الباب مائل أو هابط من جهة المقبض؟", expectedAnswer: true)
-        ],
-        solutionSteps: [
-            SolutionStep(
-                order: 1,
-                title: "افحص مفصلات الباب",
-                text: "افتح الباب قليلًا، وافحص المفصلات الموجودة على جانبه. تحقق من وجود براغٍ مرتخية أو مفصلات تتحرك من مكانها، ولاحظ إن كان الباب يهبط من جهة المقبض.",
-                illustrationAsset: "door_tilt_step1"
-            ),
-            SolutionStep(
-                order: 2,
-                title: "جهّز الباب قبل الإصلاح",
-                text: "إذا كان الباب ثقيلًا أو يهبط بوضوح، لا تحاول رفعه أو إصلاحه وحدك. اطلب مساعدة شخص بالغ أو مختص لتثبيته ودعم وزنه قبل التعامل مع المفصلات.",
-                illustrationAsset: "door_tilt_step2"
-            ),
-            SolutionStep(
-                order: 3,
-                title: "أحكم تثبيت البراغي المرتخية",
-                text: "بعد تثبيت الباب بأمان، استخدم مفكًا مناسبًا لشد البراغي المرتخية برفق. إذا كانت البراغي تدور دون أن تثبت أو كانت فتحاتها متضررة، فلا تواصل شدها بالقوة.",
-                illustrationAsset: "door_tilt_step3"
-            ),
-            SolutionStep(
-                order: 4,
-                title: "افحص استقامة الباب",
-                text: "تحقق من أن المفصلات مثبتة جيدًا وأن الباب عاد إلى موضعه الصحيح. إذا كانت المفصلات مثنية أو كان إطار الباب متضررًا، فقد يحتاج إلى إصلاح إضافي.",
-                illustrationAsset: "door_tilt_step4"
-            ),
-            SolutionStep(
-                order: 5,
-                title: "اختبر فتح الباب وإغلاقه",
-                text: "بعد التأكد من ثبات المفصلات، حرّك الباب بهدوء وتحقق من سهولة فتحه وإغلاقه ومن عدم احتكاكه بالأرض. إذا استمر الميلان، فقد تكون المشكلة في المفصلات أو الإطار نفسه.",
-                illustrationAsset: "door_tilt_step5"
-            )
-        ]
-    )
-
+            id: "door-tilt",
+            title: "ميلان الأبواب",
+            description: "يظهر ميلان في الأبواب مما يمنع إغلاقها بإحكام أو الاحتكاك بالأرضية، وغالباً ما يحتاج تعديل المفصلات.",
+            illustrationAsset: "door_tilt",
+            questions: [
+                DiagnosisQuestion(id: "door-tilt-q1", text: "هل تلاحظين أن الباب مائل أو أن المسافة بينه وبين الإطار غير متساوية؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "door-tilt-q2", text: "هل يحتك الباب بالأرض أو بإطاره أثناء فتحه أو إغلاقه؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "door-tilt-q3", text: "هل أصبح إغلاق الباب أصعب من المعتاد بسبب عدم استقامته؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "فحص ميلان الباب",
+                    text: "أغلقي الباب ببطء ولاحظي مكان احتكاكه بالإطار أو الأرض، وتحققي من اختلاف المسافات حول حوافه.",
+                    illustrationAsset: "door_tilt_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "فحص المفصلات",
+                    text: "افتحي الباب قليلًا، وافحصي المفصلات والبراغي الموجودة على جانب الباب والإطار لتحديد أي ارتخاء.",
+                    illustrationAsset: "door_tilt_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "شد براغي المفصلات",
+                    text: "استخدمي مفكًا مناسبًا لشد البراغي المرتخية باتجاه عقارب الساعة، مع التركيز على المفصلة العلوية، دون شد مفرط.",
+                    illustrationAsset: "door_tilt_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "فحص ثبات المفصلات",
+                    text: "تأكدي من ثبات المفصلات وعدم تحركها. إذا كان البرغي يدور دون أن يثبت، فتوقفي؛ فقد تكون فتحة تثبيته متآكلة وتحتاج إصلاحًا مختلفًا.",
+                    illustrationAsset: "door_tilt_step4",
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "اختبار الباب",
+                    text: "افتحي الباب وأغلقيه ببطء للتأكد من استقامته وعدم احتكاكه بالأرض أو الإطار.",
+                    illustrationAsset: "door_tilt_step5",
+                )
+            ]
+        )
+    static let chairWobble = DiagnosisProblem(
+            id: "chair-wobble",
+            title: "اهتزاز الكراسي",
+            description: "تصبح الكراسي غير متوازنة أو مهتزة عند الجلوس عليها بسبب تفكك المسامير أو تخلخل الوصلات الخشبية.",
+            illustrationAsset: "chair_wobble",
+            questions: [
+                DiagnosisQuestion(id: "chair-wobble-q1", text: "هل تلاحظين أن الكرسي يهتز أو يميل من جانب إلى آخر عند تحريكه؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "chair-wobble-q2", text: "هل يتحرك أحد أرجل الكرسي أو يبدو غير ثابت مقارنة ببقية الأرجل؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "chair-wobble-q3", text: "هل يستمر اهتزاز الكرسي عند وضعه على أرضية مستوية وصلبة؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "وضع الكرسي على سطح ثابت",
+                    text: "أفرغي الكرسي، ثم ضعيه على أرضية مستوية للتأكد من وجود اهتزاز.",
+                    illustrationAsset: "chair_wobble_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "قلب الكرسي بحذر",
+                    text: "اقلبي الكرسي على سطح ناعم وثابت للوصول إلى البراغي الموجودة أسفل المقعد، مع حماية مسند الظهر.",
+                    illustrationAsset: "chair_wobble_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "فحص تثبيت الأرجل",
+                    text: "افحصي نقاط اتصال الأرجل بالمقعد، وحددي البراغي المرتخية أو أي تشققات ظاهرة.",
+                    illustrationAsset: "chair_wobble_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "شد البراغي",
+                    text: "استخدمي مفكًا أو مفتاح ألن مناسبًا، وشدّي البراغي المرتخية باتجاه عقارب الساعة دون شد مفرط.",
+                    illustrationAsset: "chair_wobble_step4",
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "إعادة الكرسي إلى وضعه",
+                    text: "أعيدي الكرسي إلى وضعه الطبيعي، وتأكدي من ملامسة الأرجل الأربع للأرض بصورة مستقرة.",
+                    illustrationAsset: "chair_wobble_step5"
+                ),
+                SolutionStep(
+                    order: 6,
+                    title: "اختبار ثبات الكرسي",
+                    text: "حرّكي الكرسي برفق دون الجلوس عليه، وتحققي من اختفاء الاهتزاز وثبات الأرجل قبل استخدامه.",
+                    illustrationAsset: "chair_wobble_step6",
+                )
+            ]
+        )
+    static let doorHandleLoose = DiagnosisProblem(
+            id: "door-handle-loose",
+            title: "مقابض الأبواب مفكوكة",
+            description: "تتحرك المقابض من مكانها أو ترتخي أثناء الاستخدام نتيجة تآكل أو ارتخاء براغي التثبيت الداخلية.",
+            illustrationAsset: "handle_loose",
+            questions: [
+                DiagnosisQuestion(id: "door-handle-loose-q1", text: "هل يتحرك مقبض الباب أو يهتز عند الإمساك به؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "door-handle-loose-q2", text: "هل تلاحظين أن المقبض غير ثابت في مكانه عند فتح الباب أو إغلاقه؟", expectedAnswer: true),
+                DiagnosisQuestion(id: "door-handle-loose-q3", text: "هل توجد مسافة أو حركة غير طبيعية بين المقبض وقاعدته المثبتة على الباب؟", expectedAnswer: true)
+            ],
+            solutionSteps: [
+                SolutionStep(
+                    order: 1,
+                    title: "فحص المقبض",
+                    text: "افتحي الباب واتركيه مفتوحًا، ثم حرّكي المقبض برفق لتحديد ما إذا كان الارتخاء في المقبض نفسه أو في قاعدته.",
+                    illustrationAsset: "handle_loose_step1"
+                ),
+                SolutionStep(
+                    order: 2,
+                    title: "تحديد مسمار التثبيت",
+                    text: "ابحثي عن المسمار الصغير الموجود أسفل المقبض أو على جانبه، وحددي الأداة المناسبة له.",
+                    illustrationAsset: "handle_loose_step2"
+                ),
+                SolutionStep(
+                    order: 3,
+                    title: "شد مسمار المقبض",
+                    text: "ثبّتي المقبض في مكانه، ثم استخدمي مفتاح ألن أو مفكًا مناسبًا لإحكام مسمار التثبيت وفق اتجاه الربط الخاص بطرازه.",
+                    illustrationAsset: "handle_loose_step3"
+                ),
+                SolutionStep(
+                    order: 4,
+                    title: "فحص براغي القاعدة",
+                    text: "إذا استمرت حركة القاعدة، افحصي براغيها. وإذا كانت مخفية خلف غطاء دائري، أزيلي الغطاء بالطريقة الموضحة في دليل المقبض.",
+                    illustrationAsset: "handle_loose_step4"
+                ),
+                SolutionStep(
+                    order: 5,
+                    title: "تثبيت قاعدة المقبض",
+                    text: "شدّي براغي القاعدة المرتخية دون شد مفرط، ثم أعيدي الغطاء إلى مكانه إن أزلتِه.",
+                    illustrationAsset: "handle_loose_step5",
+                ),
+                SolutionStep(
+                    order: 6,
+                    title: "اختبار المقبض",
+                    text: "حرّكي المقبض عدة مرات والباب مفتوح، ثم اختبري فتح الباب وإغلاقه للتأكد من ثبات المقبض وعمل لسان القفل بشكل طبيعي.",
+                    illustrationAsset: "handle_loose_step6",
+                )
+            ]
+        )
     // MARK: Problems — Air Conditioners
 
     static let acWaterDrip = DiagnosisProblem(
